@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild, signal } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, signal } from '@angular/core';
 import { EmployeeServiceApi } from 'src/app/core/api/employee/employee.service';
 import { RoutingServiceApi } from 'src/app/core/api/routing/routing.service';
 import { TaskServiceApi } from 'src/app/core/api/task/task.service';
@@ -38,15 +38,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public constructor(
     public readonly taskService: TaskServiceApi,
     public readonly employeeService: EmployeeServiceApi,
-    public readonly homeService: HomeService
+    public readonly homeService: HomeService,
+    private readonly changeDetectorRef: ChangeDetectorRef
   ) { }
 
   public ngOnInit(): void {
     this.homeService.map.set(new google.maps.Map(
-      document.getElementById('map') as HTMLElement,
-      {
+      document.getElementById('map') as HTMLElement, {
         zoom: 14,
         center: { lat: -20.81368726737007, lng: -49.37250245722454 },
+        mapId: '4504f8b37365c3d0',
       }
     ));
 
@@ -57,12 +58,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.homeService.map()?.setOptions({ gestureHandling: 'cooperative' })
       this.isAdding.set(false);
 
-      if (!this.homeService.isAddTaskActive() && !this.homeService.isAddTaskActive()) {
-        this.homeService.openTaskDialog$.next(undefined);
-        this.homeService.openEmployeeDialog$.next(undefined);
-      }
-
-      this.homeService.selectedCoords$.next(event.latLng.toJSON());
+      this.homeService.createTask(event.latLng.lat(), event.latLng.lng());
+      this.changeDetectorRef.detectChanges();
     });
 
     document.addEventListener('mousemove', (event) => {
@@ -97,15 +94,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   public ngAfterViewInit() {
     this.homeService.map()?.data.setStyle((feature: any) => {
-      let color = '#' + Math.floor(Math.random()*16777215).toString(16);
-
       return /** @type {!google.maps.Data.StyleOptions} */ {
-        fillColor: color,
-        strokeColor: color,
+        fillColor: this.getRandomDarkColor(5),
+        strokeColor:this.getRandomDarkColor(5),
         strokeWeight: 3,
       };
     });
 
+    this.homeService.putPins();
     this.homeService.map()?.data.addGeoJson(australia);
   }
 
@@ -117,5 +113,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   public async routing(): Promise<void> {
     await this.homeService.route();
+  }
+
+  public getRandomDarkColor(darknessLevel: number): string {
+    const baseColor = Math.floor(Math.random() * 16777215);
+    const darkColor = (baseColor >> darknessLevel) << darknessLevel;
+    return '#' + darkColor.toString(16);
   }
 }

@@ -37,63 +37,50 @@ export class HomeService {
 
     for (const geoJSONData of geoJSONDatas) {
       this.map()?.data.addGeoJson(geoJSONData)
+    }
+  }
 
-      const content = this.formatMessageRoute(geoJSONData.features);
+  public async putPins(): Promise<void> {
+    const bounds = new google.maps.LatLngBounds();
 
-      const infowindow = new google.maps.InfoWindow({
-        content,
-        maxWidth: 300,
-        minWidth: 100
+    for (const task of this.taskService.tasks()) {
+      const taskLocation = new google.maps.LatLng(task.location[1], task.location[0]);
+
+      bounds.extend(taskLocation);
+
+      const createdMarker = new google.maps.Marker({
+        position: taskLocation,
+        map: this.map(),
+        icon: '/assets/apartment.svg',
+        clickable: true,
+        cursor: 'pointer',
       });
 
-      this.map()?.data.addListener('mouseover',(event: any) => {
-        infowindow.setPosition(event.latLng);
-        infowindow.open(this.map());
-      })
+      this.attachMessage(createdMarker, task);
 
-      this.map()?.data.addListener('mouseout', () => {
-        infowindow.close();
-      });
+      this.map()?.fitBounds(bounds);
 
-      const bounds = new google.maps.LatLngBounds();
-
-      for (const task of this.taskService.tasks()) {
-        const taskLocation = new google.maps.LatLng(task.location[1], task.location[0]);
-
-        bounds.extend(taskLocation);
-
-        const createdMarker = new google.maps.Marker({
-          position: taskLocation,
-          map: this.map(),
-          icon: '/assets/apartment.svg',
-          clickable: true,
-          cursor: 'pointer',
-        });
-
-        this.attachMessage(createdMarker, task);
-
-        this.map()?.fitBounds(bounds);
-
-        this.map()?.setCenter(bounds.getCenter());
-      }
+      this.map()?.setCenter(bounds.getCenter());
     }
 
     for (const employee of this.employeeService.employees()!) {
       const employeeLocationStart = new google.maps.LatLng(employee.start[1], employee.start[0]);
       const employeeLocationEnd = new google.maps.LatLng(employee.end[1], employee.end[0]);
 
-      new google.maps.Marker({
+      const image = new Image()
+      image.src = 'https://i.pravatar.cc/150?u=' + employee.id;
+      image.style.width = '30px';
+      image.style.height = '30px';
+      image.style.borderRadius = '50%';
+      image.style.border = 'none';
+      image.style.boxShadow = '0 0 3px #000';
+
+      const marker = await google.maps.importLibrary('marker') as any
+
+      new marker.AdvancedMarkerElement({
         position: employeeLocationStart,
         map: this.map(),
-        icon: '/assets/house_pin.svg',
-        clickable: true,
-        cursor: 'pointer',
-      });
-
-      new google.maps.Marker({
-        position: employeeLocationEnd,
-        map: this.map(),
-        icon: '/assets/house_pin.svg',
+        content: image
       });
     }
   }
@@ -124,24 +111,6 @@ export class HomeService {
     `
   }
 
-  private formatMessageRoute(features: GeoJSONFeature[]): string {
-    const messages = features.map((feature) => {
-      const { properties } = feature;
-      return `
-        <div>
-          <p>
-            <strong>Distance:</strong> ${properties.summary.distance}
-          </p>
-          <p>
-            <strong>Duration:</strong> ${properties.summary.duration}
-          </p>
-        </div>
-      `
-    });
-
-    return messages.join('');
-  }
-
   public attachMessage(
     marker: google.maps.Marker,
     task: Task
@@ -161,5 +130,22 @@ export class HomeService {
     marker.addListener("mouseout", () => {
       infowindow.close();
     });
+  }
+
+  public async  createTask(lat: number, long: number): Promise<void> {
+    const task = {
+      id: this.taskService.tasks().length + 100,
+      location: [long, lat] as [number, number],
+      priority: 30,
+      service: 500,
+      setup: 5,
+      description: 'Task ' + this.taskService.tasks().length
+    }
+
+    this.taskService.create(task);
+
+    await this.putPins();
+
+    await this.route();
   }
 }

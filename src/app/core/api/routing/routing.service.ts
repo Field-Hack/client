@@ -14,14 +14,14 @@ export class RoutingServiceApi {
   ) {}
 
   public async route({ tasks, employees}: { tasks: Task[], employees: Employee[]}): Promise<ORSResponse> {
-    return firstValueFrom(this.http.post<ORSResponse>('http://150.136.218.106:3000/optimization', {
+    return firstValueFrom(this.http.post<ORSResponse>('http://150.136.218.106:2053/optimization', {
       jobs: tasks,
       vehicles: employees,
     }));
   }
 
   public async geoJson(route: Route): Promise<GeoJSONData> {
-    return firstValueFrom(this.http.post<GeoJSONData>('http://150.136.218.106:8080/ors/v2/directions/driving-car/geojson', {
+    return firstValueFrom(this.http.post<GeoJSONData>('http://150.136.218.106:2053/directions', {
       coordinates: route.steps.map(step => step.location),
       radiuses: route.steps.map(step => 5000),
       language: 'pt',
