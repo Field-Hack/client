@@ -4,6 +4,9 @@ import { RoutingServiceApi } from 'src/app/core/api/routing/routing.service';
 import { TaskServiceApi } from 'src/app/core/api/task/task.service';
 import { Employee } from 'src/app/core/interfaces/employees.types';
 import { Task } from 'src/app/core/interfaces/tasks.types';
+import { google } from "google-maps";
+
+declare const google : google;
 
 @Component({
   selector: 'app-home',
@@ -25,8 +28,9 @@ export class HomeComponent {
 
   public ngOnInit(): void {
     this.tasks.set(this.taskServiceApi.search());
+
     this.employees.set(this.employeeServiceApi.search());
-    // @ts-expect-error: fds
+
     this.map.set(new google.maps.Map(
       document.getElementById('map') as HTMLElement,
       {
@@ -35,15 +39,9 @@ export class HomeComponent {
       }
     ));
 
-
-    this.map()?.data.setStyle({
-      strokeColor: 'blue',
-      strokeWeight: 3,
+    this.map()?.addListener('click', (event: any) => {
+      console.log(event.latLng.toJSON());
     });
-
-    // this.map()?.data.addGeoJson(json);
-
-    // this.map()?.data.addGeoJson(json2);
   }
 
   public async routing(): Promise<void> {
@@ -53,7 +51,29 @@ export class HomeComponent {
     });
 
     for (const route of routes) {
-      this.map()?.data.addGeoJson(route);
+      console.log(route);
+      const res = this.map()?.data.addGeoJson(route)
+      const markers = this.tasks()?.map((task: Task) => {
+        return { lat: task.location[1], lng: task.location[0] }
+      });
+
+      const bounds = new google.maps.LatLngBounds();
+      for (const marker of markers!) {
+        bounds.extend(marker);
+
+        new google.maps.Marker({
+          position: marker,
+          map: this.map()
+        });
+
+        this.map()?.fitBounds(bounds);
+
+        this.map()?.setCenter(bounds.getCenter());
+      }
+
+      for (const feature of res) {
+        feature.setProperty('strokeColor', '#' + Math.floor(Math.random()*16777215).toString(16));
+      }
     }
   }
 }

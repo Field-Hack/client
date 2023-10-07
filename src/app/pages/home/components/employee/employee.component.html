@@ -2,7 +2,7 @@
   <div class="employee__title">{{ employee?.name }}</div>
   <div class="employee__coord">
     <mat-icon fontIcon="location_on" color="primary"></mat-icon>
-    <span>{{ employee?.lat }}</span>,
-    <span>{{ employee?.long }}</span>
+    <span>{{ employee?.start?.[0] }}</span>,
+    <span>{{ employee?.start?.[1] }}</span>
   </div>
 </div>

@@ -1,11 +1,12 @@
 import { Employee } from "./employees.types";
 
 export interface Task {
-  id: string;
-  identifier: number,
-  title: string,
-  lat: number,
+  id: number;
+  description?: string;
   service: number;
-  long: number
   employee?: Employee;
+  time_windows: [number, number][];
+  setup: number;
+  priority: number;
+  location: [number, number];
 }

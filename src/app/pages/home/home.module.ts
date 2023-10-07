@@ -8,13 +8,16 @@ import { HomeRoutingModule } from './home-routing.module';
 import { MapComponent } from './components/map/map.component';
 import { HomeEmployeeComponent } from './components/employee/employee.component';
 import { HomeTaskComponent } from './components/task/task.component';
+import { RouterComponent } from './components/router/route.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     MapComponent,
     HomeTaskComponent,
     HomeEmployeeComponent,
-    HomeComponent
+    HomeComponent,
+    RouterComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +25,8 @@ import { HomeTaskComponent } from './components/task/task.component';
     HttpClientJsonpModule,
     HomeRoutingModule,
     MatCheckboxModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ]
 })
 export class HomeModule { }

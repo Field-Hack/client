@@ -1,7 +1,14 @@
 export interface Employee {
-  id: string;
+  id: number;
   name: string;
-  avatar_url: string;
-  lat: number;
-  long: number;
+  start: [number, number];
+  end: [number, number];
+  profile: string;
+  time_window: [number, number];
+  max_tasks: number;
+  cost: {
+    fixed: number;
+    per_hour: number;
+  };
+  avatar_url?: string;
 }
