@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Task } from '../../interfaces/tasks.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskServiceApi {
-
-  private tasks: Task[] = [
+  public tasks = signal<Task[]>([
     {
       id: 0,
       description: 'Carvalho Comércio',
@@ -367,20 +366,22 @@ export class TaskServiceApi {
     //   priority: 0,
     //   location: [ -49.74588124, -20.70589437 ]
     // }
-  ]
-
+  ])
 
   public constructor() {}
 
   public search(): Task[] {
-    return this.tasks;
+    return this.tasks();
   }
 
   public create(params: Task): void {
-    this.tasks.push(params);
+    const tasks = this.tasks();
+    tasks.push(params);
+    this.tasks.set(tasks);
   }
 
   public delete(id?: number): void {
-    this.tasks = this.tasks.filter((item) => item.id !== id);
+    const tasks = this.tasks();
+    this.tasks.set(tasks.filter((item) => item.id !== id));
   }
 }

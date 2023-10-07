@@ -1,12 +1,25 @@
 <div class="route-page">
   <div class="route-page__container">
-    <app-task *ngFor="let task of tasks()" [task]="task"></app-task>
-    <button (click)="routing()">
-      click aqui
+    <app-employee *ngFor="let employee of employeeService.employees()" [employee]="employee" [@slideOutAnimation]></app-employee>
+
+    <button class="add-action" mat-mini-fab>
+      <mat-icon fontIcon="add"></mat-icon>
     </button>
   </div>
+
   <div class="route-page__container">
-    <app-employee *ngFor="let employee of employees()" [employee]="employee"></app-employee>
+    <app-task *ngFor="let task of taskService.tasks()" [task]="task" [@slideOutAnimation]></app-task>
+
+    <button class="add-action" mat-mini-fab>
+      <mat-icon fontIcon="add"></mat-icon>
+    </button>
   </div>
-  <div class="route-page__map"><app-map></app-map></div>
+
+  <div class="route-page__map">
+    <app-map></app-map>
+
+    <button class="route-action" mat-fab (click)="routing()">
+      <mat-icon>route</mat-icon>
+    </button>
+  </div>
 </div>

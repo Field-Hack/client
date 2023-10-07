@@ -4,25 +4,64 @@
   left: 0px;
   height: 100%;
   width: 100%;
-  padding: 24px;
+  padding: 8px;
   display: grid;
   grid-template-columns: 300px 300px 1fr;
-  gap: 24px;
+  gap: 8px;
 
   &__map {
+    position: relative;
     border: thin solid #d3ddf2;
     border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
   }
 
   &__container {
-    padding: 4px;
+    padding: 8px;
     border: thin solid #d3ddf2;
     border-radius: 8px;
     height: 100%;
     width: 100%;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 8px;
+    box-shadow: var(--box-shadow);
+  }
+}
+
+.add-action {
+  transition: transform 0.2s;
+  background-color: #0000FF;
+
+  &:hover {
+    transform: scale(1.04);
+  }
+
+  mat-icon {
+    font-size: 18px;
+    height: 18px;
+    width: 18px;
+    color: white;
+  }
+}
+
+.route-action {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transition: transform 0.2s;
+  background-color: #003366;
+  transform: translateX(-50%);
+
+  &:hover {
+    transform: translateX(-50%) scale(1.04);
+  }
+
+  mat-icon {
+    color: white;
   }
 }

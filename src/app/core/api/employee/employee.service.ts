@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Employee } from '../../interfaces/employees.types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeServiceApi {
-
-  private employees: Employee[] = [
+  public employees = signal<Employee[]>([
     {
       id: 0,
       start: [ -49.23396325, -21.15064697 ],
@@ -15,7 +14,8 @@ export class EmployeeServiceApi {
       profile: 'driving-car',
       time_window: [ 28800, 43200 ],
       max_tasks: 5,
-      cost: { fixed: 265, per_hour: 13 }
+      cost: { fixed: 265, per_hour: 13 },
+      avatar_url: 'https://i.pravatar.cc/150?u=0'
     },
     {
       id: 1,
@@ -25,7 +25,8 @@ export class EmployeeServiceApi {
       profile: 'driving-car',
       time_window: [ 50400, 64800 ],
       max_tasks: 3,
-      cost: { fixed: 56, per_hour: 14 }
+      cost: { fixed: 56, per_hour: 14 },
+      avatar_url: 'https://i.pravatar.cc/150?u=1'
     },
     {
       id: 2,
@@ -35,7 +36,8 @@ export class EmployeeServiceApi {
       profile: 'driving-car',
       time_window: [ 28800, 43200 ],
       max_tasks: 2,
-      cost: { fixed: 134, per_hour: 9 }
+      cost: { fixed: 134, per_hour: 9 },
+      avatar_url: 'https://i.pravatar.cc/150?u=2'
     },
     // {
     //   id: 3,
@@ -207,19 +209,22 @@ export class EmployeeServiceApi {
     //   max_tasks: 2,
     //   cost: { fixed: 233, per_hour: 6 }
     // }
-  ]
+  ])
 
   public constructor() {}
 
   public search(): Employee[] {
-    return this.employees;
+    return this.employees();
   }
 
   public create(params: Employee): void {
-    this.employees.push(params);
+    const employees = this.employees();
+    employees.push(params);
+    this.employees.set(employees);
   }
 
   public delete(id?: number): void {
-    this.employees = this.employees.filter((item) => item.id !== id);
+    const employees = this.employees();
+    this.employees.set(employees.filter((item) => item.id !== id));
   }
 }

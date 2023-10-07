@@ -1,11 +1,20 @@
 <div class="task">
-  <div class="task__title">{{ task?.description }}</div>
-  <div class="task__employee" *ngIf="task?.employee">
-    <div class="task__employee__avatar">{{ task?.employee?.avatar_url }}</div>
-    <div class="task__employee__name">{{ task?.employee?.name }}</div>
+  <div class="task__info">
+    <img class="task__avatar" [src]="task?.employee?.avatar_url || 'assets/pictures/placeholder.png'" [alt]="task?.description">
+    <span class="task__name">{{ task?.description }}</span>
   </div>
-  <div class="task__coord">
-    <mat-icon fontIcon="location_on" color="primary"></mat-icon>
-    <span>{{ task?.location }}</span>,
+
+  <div class="task__actions">
+    <button class="task__action task__action--pin" mat-mini-fab>
+      <mat-icon fontIcon="location_on"></mat-icon>
+    </button>
+
+    <button class="task__action task__action--edit" mat-mini-fab>
+      <mat-icon fontIcon="edit"></mat-icon>
+    </button>
+
+    <button class="task__action task__action--delete" mat-mini-fab (click)="delete()">
+      <mat-icon fontIcon="delete"></mat-icon>
+    </button>
   </div>
 </div>

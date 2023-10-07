@@ -1,4 +1,5 @@
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,6 +11,7 @@ import { HomeEmployeeComponent } from './components/employee/employee.component'
 import { HomeTaskComponent } from './components/task/task.component';
 import { RouterComponent } from './components/router/route.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SaveTaskComponent } from './components/save-task/save-task.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     HomeTaskComponent,
     HomeEmployeeComponent,
     HomeComponent,
-    RouterComponent
+    RouterComponent,
+    SaveTaskComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     HomeRoutingModule,
     MatCheckboxModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ]
 })
 export class HomeModule { }
