@@ -8,206 +8,203 @@ export class EmployeeServiceApi {
   public employees = signal<Employee[]>([
     {
       id: 0,
-      start: [ -49.23396325, -21.15064697 ],
-      end: [ -49.23396325, -21.15064697 ],
-      name: 'teste',
+      start: [ -49.40353258, -20.82373505 ],
+      end: [ -49.40353258, -20.82373505 ],
       profile: 'driving-car',
+      name: 'teste',
       time_window: [ 28800, 43200 ],
-      max_tasks: 5,
-      cost: { fixed: 265, per_hour: 13 },
-      avatar_url: 'https://i.pravatar.cc/150?u=0'
+      max_tasks: 4,
+      cost: { fixed: 44, per_hour: 15 }
     },
     {
       id: 1,
-      start: [ -49.80970691, -20.9447359 ],
-      name: 'teste',
-      end: [ -49.80970691, -20.9447359 ],
+      start: [ -49.37733358, -20.85055825 ],
+      end: [ -49.37733358, -20.85055825 ],
       profile: 'driving-car',
+      name: 'teste',
       time_window: [ 50400, 64800 ],
-      max_tasks: 3,
-      cost: { fixed: 56, per_hour: 14 },
-      avatar_url: 'https://i.pravatar.cc/150?u=1'
+      max_tasks: 5,
+      cost: { fixed: 16, per_hour: 8 }
     },
     {
       id: 2,
-      start: [ -49.72762956, -20.8755393 ],
-      name: 'teste',
-      end: [ -49.72762956, -20.8755393 ],
+      start: [ -49.40626473, -20.82674698 ],
+      end: [ -49.40626473, -20.82674698 ],
       profile: 'driving-car',
+      name: 'teste',
+      time_window: [ 50400, 64800 ],
+      max_tasks: 5,
+      cost: { fixed: 15, per_hour: 19 }
+    },
+    {
+      id: 3,
+      start: [ -49.3617337, -20.85185755 ],
+      end: [ -49.3617337, -20.85185755 ],
+      profile: 'driving-car',
+      name: 'teste',
       time_window: [ 28800, 43200 ],
-      max_tasks: 2,
-      cost: { fixed: 134, per_hour: 9 },
-      avatar_url: 'https://i.pravatar.cc/150?u=2'
+      max_tasks: 5,
+      cost: { fixed: 19, per_hour: 14 }
+    },
+    {
+      id: 4,
+      start: [ -49.39668282, -20.77984868 ],
+      end: [ -49.39668282, -20.77984868 ],
+      profile: 'driving-car',
+      name: 'teste',
+      time_window: [ 50400, 64800 ],
+      max_tasks: 3,
+      cost: { fixed: 294, per_hour: 10 }
+    },
+    {
+      id: 5,
+      start: [ -49.36486397, -20.82374111 ],
+      end: [ -49.36486397, -20.82374111 ],
+      profile: 'driving-car',
+      name: 'teste',
+      time_window: [ 28800, 43200 ],
+      max_tasks: 4,
+      cost: { fixed: 29, per_hour: 3 }
+    },
+    {
+      id: 6,
+      start: [ -49.42172103, -20.81322688 ],
+      end: [ -49.42172103, -20.81322688 ],
+      profile: 'driving-car',
+      name: 'teste',
+      time_window: [ 28800, 43200 ],
+      max_tasks: 1,
+      cost: { fixed: 208, per_hour: 5 }
+    },
+    {
+      id: 7,
+      start: [ -49.37823326, -20.8555306 ],
+      end: [ -49.37823326, -20.8555306 ],
+      profile: 'driving-car',
+      name: 'teste',
+      time_window: [ 50400, 64800 ],
+      max_tasks: 3,
+      cost: { fixed: 186, per_hour: 9 }
     },
     // {
-    //   id: 3,
-    //   start: [ -49.36455419, -21.11081565 ],
-    //   name: 'teste',
-    //   end: [ -49.36455419, -21.11081565 ],
-    //   profile: 'driving-car',
-    //   time_window: [ 50400, 64800 ],
-    //   max_tasks: 1,
-    //   cost: { fixed: 252, per_hour: 15 }
-    // },
-    // {
-    //   id: 4,
-    //   start: [ -49.1464725, -21.0375692 ],
-    //   name: 'teste',
-    //   end: [ -49.1464725, -21.0375692 ],
-    //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 1,
-    //   cost: { fixed: 10, per_hour: 17 }
-    // },
-    // {
-    //   id: 5,
-    //   start: [ -49.18402266, -21.01533808 ],
-    //   name: 'teste',
-    //   end: [ -49.18402266, -21.01533808 ],
-    //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 2,
-    //   cost: { fixed: 31, per_hour: 3 }
-    // },
-    // {
-    //   id: 6,
-    //   start: [ -49.03634, -20.69766954 ],
-    //   name: 'teste',
-    //   end: [ -49.03634, -20.69766954 ],
-    //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 1,
-    //   cost: { fixed: 69, per_hour: 11 }
-    // },
-    // {
-    //   id: 7,
-    //   start: [ -49.56870382, -20.59902642 ],
-    //   name: 'teste',
-    //   end: [ -49.56870382, -20.59902642 ],
-    //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 3,
-    //   cost: { fixed: 175, per_hour: 6 }
-    // },
-    // {
     //   id: 8,
-    //   start: [ -49.06105472, -21.14877307 ],
-    //   name: 'teste',
-    //   end: [ -49.06105472, -21.14877307 ],
+    //   start: [ -49.37291945, -20.79827337 ],
+    //   end: [ -49.37291945, -20.79827337 ],
     //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 4,
-    //   cost: { fixed: 231, per_hour: 9 }
+    //   name: 'teste',
+    //   time_window: [ 50400, 64800 ],
+    //   max_tasks: 5,
+    //   cost: { fixed: 175, per_hour: 4 }
     // },
     // {
     //   id: 9,
-    //   start: [ -49.4084759, -21.24972097 ],
-    //   name: 'teste',
-    //   end: [ -49.4084759, -21.24972097 ],
+    //   start: [ -49.41763056, -20.82179324 ],
+    //   end: [ -49.41763056, -20.82179324 ],
     //   profile: 'driving-car',
-    //   time_window: [ 50400, 64800 ],
-    //   max_tasks: 2,
-    //   cost: { fixed: 156, per_hour: 8 }
+    //   name: 'teste',
+    //   time_window: [ 28800, 43200 ],
+    //   max_tasks: 5,
+    //   cost: { fixed: 235, per_hour: 8 }
     // },
     // {
     //   id: 10,
-    //   start: [ -49.32499388, -20.62599093 ],
-    //   name: 'teste',
-    //   end: [ -49.32499388, -20.62599093 ],
+    //   start: [ -49.38461334, -20.82864026 ],
+    //   end: [ -49.38461334, -20.82864026 ],
     //   profile: 'driving-car',
+    //   name: 'teste',
     //   time_window: [ 50400, 64800 ],
-    //   max_tasks: 2,
-    //   cost: { fixed: 222, per_hour: 10 }
+    //   max_tasks: 5,
+    //   cost: { fixed: 12, per_hour: 18 }
     // },
     // {
     //   id: 11,
-    //   start: [ -49.52471462, -20.4474612 ],
-    //   name: 'teste',
-    //   end: [ -49.52471462, -20.4474612 ],
+    //   start: [ -49.40737835, -20.81886814 ],
+    //   end: [ -49.40737835, -20.81886814 ],
     //   profile: 'driving-car',
-    //   time_window: [ 50400, 64800 ],
-    //   max_tasks: 2,
-    //   cost: { fixed: 122, per_hour: 6 }
+    //   name: 'teste',
+    //   time_window: [ 28800, 43200 ],
+    //   max_tasks: 1,
+    //   cost: { fixed: 5, per_hour: 19 }
     // },
     // {
     //   id: 12,
-    //   start: [ -49.22156571, -20.7500471 ],
-    //   name: 'teste',
-    //   end: [ -49.22156571, -20.7500471 ],
+    //   start: [ -49.38126532, -20.78645924 ],
+    //   end: [ -49.38126532, -20.78645924 ],
     //   profile: 'driving-car',
-    //   time_window: [ 50400, 64800 ],
-    //   max_tasks: 1,
-    //   cost: { fixed: 101, per_hour: 3 }
+    //   name: 'teste',
+    //   time_window: [ 28800, 43200 ],
+    //   max_tasks: 4,
+    //   cost: { fixed: 286, per_hour: 13 }
     // },
     // {
     //   id: 13,
-    //   start: [ -49.46509824, -20.73309792 ],
-    //   name: 'teste',
-    //   end: [ -49.46509824, -20.73309792 ],
+    //   start: [ -49.35936861, -20.82732524 ],
+    //   end: [ -49.35936861, -20.82732524 ],
     //   profile: 'driving-car',
-    //   time_window: [ 50400, 64800 ],
-    //   max_tasks: 5,
-    //   cost: { fixed: 240, per_hour: 18 }
+    //   name: 'teste',
+    //   time_window: [ 28800, 43200 ],
+    //   max_tasks: 1,
+    //   cost: { fixed: 64, per_hour: 6 }
     // },
     // {
     //   id: 14,
-    //   start: [ -49.2048271, -20.75410181 ],
-    //   name: 'teste',
-    //   end: [ -49.2048271, -20.75410181 ],
+    //   start: [ -49.39789951, -20.7748813 ],
+    //   end: [ -49.39789951, -20.7748813 ],
     //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 3,
-    //   cost: { fixed: 239, per_hour: 10 }
+    //   name: 'teste',
+    //   time_window: [ 50400, 64800 ],
+    //   max_tasks: 4,
+    //   cost: { fixed: 18, per_hour: 18 }
     // },
     // {
     //   id: 15,
-    //   start: [ -49.5063857, -21.08107244 ],
-    //   name: 'teste',
-    //   end: [ -49.5063857, -21.08107244 ],
+    //   start: [ -49.36682058, -20.84539958 ],
+    //   end: [ -49.36682058, -20.84539958 ],
     //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 1,
-    //   cost: { fixed: 238, per_hour: 2 }
+    //   name: 'teste',
+    //   time_window: [ 50400, 64800 ],
+    //   max_tasks: 3,
+    //   cost: { fixed: 49, per_hour: 5 }
     // },
     // {
     //   id: 16,
-    //   start: [ -49.2658023, -21.03352405 ],
-    //   name: 'teste',
-    //   end: [ -49.2658023, -21.03352405 ],
+    //   start: [ -49.36321267, -20.81744571 ],
+    //   end: [ -49.36321267, -20.81744571 ],
     //   profile: 'driving-car',
+    //   name: 'teste',
     //   time_window: [ 50400, 64800 ],
-    //   max_tasks: 5,
-    //   cost: { fixed: 260, per_hour: 11 }
+    //   max_tasks: 3,
+    //   cost: { fixed: 232, per_hour: 16 }
     // },
     // {
     //   id: 17,
-    //   start: [ -49.31533408, -21.11191631 ],
-    //   name: 'teste',
-    //   end: [ -49.31533408, -21.11191631 ],
+    //   start: [ -49.40153094, -20.79194197 ],
+    //   end: [ -49.40153094, -20.79194197 ],
     //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 4,
-    //   cost: { fixed: 23, per_hour: 3 }
+    //   name: 'teste',
+    //   time_window: [ 50400, 64800 ],
+    //   max_tasks: 3,
+    //   cost: { fixed: 42, per_hour: 6 }
     // },
     // {
     //   id: 18,
-    //   start: [ -49.06903578, -20.84610082 ],
-    //   name: 'teste',
-    //   end: [ -49.06903578, -20.84610082 ],
+    //   start: [ -49.35861361, -20.82356169 ],
+    //   end: [ -49.35861361, -20.82356169 ],
     //   profile: 'driving-car',
-    //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 5,
-    //   cost: { fixed: 40, per_hour: 16 }
+    //   name: 'teste',
+    //   time_window: [ 50400, 64800 ],
+    //   max_tasks: 1,
+    //   cost: { fixed: 248, per_hour: 2 }
     // },
     // {
     //   id: 19,
-    //   start: [ -49.07768921, -20.85795189 ],
-    //   name: 'teste',
-    //   end: [ -49.07768921, -20.85795189 ],
+    //   start: [ -49.39945628, -20.7814742 ],
+    //   end: [ -49.39945628, -20.7814742 ],
     //   profile: 'driving-car',
+    //   name: 'teste',
     //   time_window: [ 28800, 43200 ],
-    //   max_tasks: 2,
-    //   cost: { fixed: 233, per_hour: 6 }
+    //   max_tasks: 1,
+    //   cost: { fixed: 260, per_hour: 0 }
     // }
   ])
 
