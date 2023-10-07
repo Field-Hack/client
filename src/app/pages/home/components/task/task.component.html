@@ -1,0 +1,13 @@
+<div class="task">
+  <div class="task__title">{{ task?.title }}</div>
+  <div class="task__title">{{ task?.identifier }}</div>
+  <div class="task__employee" *ngIf="task?.employee">
+    <div class="task__employee__avatar">{{ task?.employee?.avatar_url }}</div>
+    <div class="task__employee__name">{{ task?.employee?.name }}</div>
+  </div>
+  <div class="task__coord">
+    <mat-icon fontIcon="location_on" color="primary"></mat-icon>
+    <span>{{ task?.lat }}</span>,
+    <span>{{ task?.long }}</span>
+  </div>
+</div>

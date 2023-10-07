@@ -9,8 +9,20 @@
   grid-template-columns: 300px 300px 1fr;
   gap: 24px;
 
-  &__container {
+  &__map {
     border: thin solid #d3ddf2;
     border-radius: 8px;
+  }
+
+  &__container {
+    padding: 4px;
+    border: thin solid #d3ddf2;
+    border-radius: 8px;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 }
