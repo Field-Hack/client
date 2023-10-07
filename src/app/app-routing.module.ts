@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/home/home-routing.module').then((module) => module.HomeRoutingModule),
+    loadChildren: () => import('./pages/home/home.module').then((module) => module.HomeModule),
     title: 'Roteirizador - Field Control'
   },
 ];
