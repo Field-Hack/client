@@ -1,0 +1,80 @@
+<div class="employee-form" [formGroup]="form" [ngClass]="{ 'employee-form--open': open }" (click)="homeService.isAddTaskActive.set(false)">
+  <div class="employee-form__header">
+    <span class="employee-form__title">
+      <span *ngIf="!employeeId() && employeeId() !== 0">Criar</span>
+      <span *ngIf="employeeId() || employeeId() === 0">Editar</span>
+      &nbsp;colaborador
+    </span>
+
+    <button class="employee-form__close" mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field [appearance]="'outline'">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name">
+    <mat-error *ngIf="form.get('name')?.hasError('required')">
+      Obrigatório
+    </mat-error>
+  </mat-form-field>
+
+  <div class="employee-form__double">
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Hora de inicio</mat-label>
+      <input matInput formControlName="time_window_start">
+      <mat-error *ngIf="form.get('time_window_start')?.hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Hora de fim</mat-label>
+      <input matInput formControlName="time_window_end">
+      <mat-error *ngIf="form.get('time_window_end')?.hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="employee-form__double">
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Latitude de inicio</mat-label>
+      <input matInput formControlName="start_latitude">
+      <mat-error *ngIf="form.get('start_latitude')?.hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Longitude de inicio</mat-label>
+      <input matInput formControlName="start_longitude">
+      <mat-error *ngIf="form.get('start_longitude')?.hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="employee-form__double">
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Latitude de fim</mat-label>
+      <input matInput formControlName="end_latitude">
+      <mat-error *ngIf="form.get('end_latitude')?.hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Longitude de fim</mat-label>
+      <input matInput formControlName="end_longitude">
+      <mat-error *ngIf="form.get('end_longitude')?.hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <button color="primary" mat-stroked-button class="employee-form__button" (click)="save()" [disabled]="!form.valid || form.pristine">
+    <span *ngIf="!employeeId() && employeeId() !== 0">Criar</span>
+    <span *ngIf="employeeId() || employeeId() === 0">Editar</span>
+  </button>
+</div>

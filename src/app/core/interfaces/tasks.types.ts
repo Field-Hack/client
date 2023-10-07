@@ -5,7 +5,7 @@ export interface Task {
   description?: string;
   service: number;
   employee?: Employee;
-  time_windows: [number, number][];
+  time_windows: [number, number][] | null;
   setup: number;
   priority: number;
   location: [number, number];

@@ -1,3 +1,62 @@
-<div class="task-form" [ngClass]="{ 'task-form--open': open }">
+<div class="task-form" [formGroup]="form" [ngClass]="{ 'task-form--open': open }" (click)="homeService.isAddEmployeeActive.set(false)">
+  <div class="task-form__header">
+    <span class="task-form__title">
+      <span *ngIf="!taskId() && taskId() !== 0">Criar</span>
+      <span *ngIf="taskId() || taskId() === 0">Editar</span>
+      &nbsp;atividade
+    </span>
 
+    <button class="task-form__close" mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-form-field [appearance]="'outline'">
+    <mat-label>Descrição</mat-label>
+    <input matInput formControlName="description">
+    <mat-error *ngIf="form.get('description')?.hasError('required')">
+      Obrigatório
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field [appearance]="'outline'">
+    <mat-label>Duração</mat-label>
+    <input matInput formControlName="service" type="number">
+    <mat-error *ngIf="form.get('service')?.hasError('required')">
+      Obrigatório
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field [appearance]="'outline'">
+    <mat-label>Prioridade</mat-label>
+    <input matInput formControlName="priority" type="number">
+  </mat-form-field>
+
+  <mat-form-field [appearance]="'outline'">
+    <mat-label>Tempo de preparo</mat-label>
+    <input matInput formControlName="setup" type="number">
+  </mat-form-field>
+
+  <div class="task-form__double">
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Latitude</mat-label>
+      <input matInput formControlName="latitude">
+      <mat-error *ngIf="form.get('latitude')?.hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field [appearance]="'outline'">
+      <mat-label>Longitude</mat-label>
+      <input matInput formControlName="longitude">
+      <mat-error *ngIf="form.get('longitude')?.hasError('required')">
+        Obrigatório
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <button color="primary" mat-stroked-button class="task-form__button" (click)="save()" [disabled]="!form.valid || form.pristine">
+    <span *ngIf="!taskId() && taskId() !== 0">Criar</span>
+    <span *ngIf="taskId() || taskId() === 0">Editar</span>
+  </button>
 </div>

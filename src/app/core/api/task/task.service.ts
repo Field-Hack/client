@@ -374,10 +374,17 @@ export class TaskServiceApi {
     return this.tasks();
   }
 
-  public create(params: Task): void {
+  public create(task: Task): void {
     const tasks = this.tasks();
-    tasks.push(params);
+    tasks.push(task);
     this.tasks.set(tasks);
+  }
+
+  public edit(task: Task): void {
+    const tasks = this.tasks();
+    this.tasks.set(tasks.map((item) => {
+      return item.id === task.id ? task : item;
+    }));
   }
 
   public delete(id?: number): void {

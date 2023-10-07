@@ -6,10 +6,15 @@
   width: 100%;
   padding: 8px;
   display: grid;
-  grid-template-columns: 300px 300px 1fr;
   gap: 8px;
+  grid-template-columns: 300px 300px 1fr;
+  grid-template-rows: 56px 1fr;
+  grid-template-areas:
+   "employees-header tasks-header map"
+   "employees tasks map";
 
   &__map {
+    grid-area: map;
     position: relative;
     border: thin solid #d3ddf2;
     border-radius: 8px;
@@ -18,6 +23,7 @@
   }
 
   &__container {
+    position: relative;
     padding: 8px;
     border: thin solid #d3ddf2;
     border-radius: 8px;
@@ -30,38 +36,99 @@
     align-items: center;
     gap: 8px;
     box-shadow: var(--box-shadow);
+
+    & > mat-icon {
+      width: 40px;
+      height: 40px;
+      font-size: 40px;
+    }
+
+    &--employees-header {
+      grid-area: employees-header;
+      overflow: hidden;
+      font-size: 18px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: row;
+      padding-left: 16px;
+    }
+
+    &--employees {
+      grid-area: employees;
+    }
+
+    &--tasks-header {
+      grid-area: tasks-header;
+      overflow: hidden;
+      font-size: 18px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: row;
+      padding-left: 16px;
+    }
+
+    &--tasks {
+      grid-area: tasks;
+    }
+
+    &--closed {
+      overflow: hidden !important;
+    }
   }
 }
 
-.add-action {
+.avatar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: thin solid black;
+  border-radius: 50%;
+}
+
+.route-actions {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+}
+
+.route-action {
   transition: transform 0.2s;
-  background-color: #0000FF;
+  background-color: #003366;
 
   &:hover {
     transform: scale(1.04);
   }
 
   mat-icon {
-    font-size: 18px;
-    height: 18px;
-    width: 18px;
     color: white;
   }
 }
 
-.route-action {
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
+.mouse {
+  position: fixed;
   transition: transform 0.2s;
-  background-color: #003366;
-  transform: translateX(-50%);
+  color: black;
+  transform: translate(-50%, -90%);
+  width: 42px;
+  height: 42px;
+  font-size: 42px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
 
-  &:hover {
-    transform: translateX(-50%) scale(1.04);
-  }
-
-  mat-icon {
-    color: white;
+  &--on {
+    opacity: 1;
+    visibility: visible;
   }
 }

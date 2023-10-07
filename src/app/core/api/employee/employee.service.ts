@@ -9,8 +9,8 @@ export class EmployeeServiceApi {
     {
       id: 0,
       start: [ -49.23396325, -21.15064697 ],
-      name: 'teste',
       end: [ -49.23396325, -21.15064697 ],
+      name: 'teste',
       profile: 'driving-car',
       time_window: [ 28800, 43200 ],
       max_tasks: 5,
@@ -217,10 +217,17 @@ export class EmployeeServiceApi {
     return this.employees();
   }
 
-  public create(params: Employee): void {
+  public create(employee: Employee): void {
     const employees = this.employees();
-    employees.push(params);
+    employees.push(employee);
     this.employees.set(employees);
+  }
+
+  public edit(employee: Employee): void {
+    const employees = this.employees();
+    this.employees.set(employees.map((item) => {
+      return item.id === employee.id ? employee : item;
+    }));
   }
 
   public delete(id?: number): void {

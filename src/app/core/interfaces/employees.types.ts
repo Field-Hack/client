@@ -5,8 +5,8 @@ export interface Employee {
   end: [number, number];
   profile: string;
   time_window: [number, number];
-  max_tasks: number;
-  cost: {
+  max_tasks?: number;
+  cost?: {
     fixed: number;
     per_hour: number;
   };
