@@ -11,7 +11,6 @@ import { HomeRoutingModule } from './home-routing.module';
 import { MapComponent } from './components/map/map.component';
 import { HomeEmployeeComponent } from './components/employee/employee.component';
 import { HomeTaskComponent } from './components/task/task.component';
-import { RouterComponent } from './components/router/route.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SaveTaskComponent } from './components/save-task/save-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +22,6 @@ import { SaveEmployeeComponent } from './components/save-employee/save-employee.
     HomeTaskComponent,
     HomeEmployeeComponent,
     HomeComponent,
-    RouterComponent,
     SaveTaskComponent,
     SaveEmployeeComponent
   ],
