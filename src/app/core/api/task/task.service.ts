@@ -9,7 +9,7 @@ export class TaskServiceApi {
     {
       id: 0,
       description: 'Atividade 1',
-      service: 900,
+      service: 1800,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 300,
       priority: 1,
@@ -18,7 +18,7 @@ export class TaskServiceApi {
     {
       id: 5,
       description: 'Atividade 2',
-      service: 1200,
+      service: 2400,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 300,
       priority: 0,
@@ -27,7 +27,7 @@ export class TaskServiceApi {
     {
       id: 22,
       description: 'Atividade 3',
-      service: 600,
+      service: 1200,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 300,
       priority: 1,
@@ -36,7 +36,7 @@ export class TaskServiceApi {
     {
       id: 6,
       description: 'Atividade 4',
-      service: 900,
+      service: 1800,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 300,
       priority: 0,
@@ -45,7 +45,7 @@ export class TaskServiceApi {
     {
       id: 13,
       description: 'Atividade 5',
-      service: 1500,
+      service: 3000,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 300,
       priority: 0,
@@ -54,7 +54,7 @@ export class TaskServiceApi {
     {
       id: 20,
       description: 'Atividade 6',
-      service: 1200,
+      service: 2400,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 300,
       priority: 0,
@@ -63,7 +63,7 @@ export class TaskServiceApi {
     {
       id: 21,
       description: 'Atividade 7',
-      service: 600,
+      service: 1200,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 300,
       priority: 0,
@@ -72,7 +72,7 @@ export class TaskServiceApi {
     {
       id: 23,
       description: 'Atividade 8',
-      service: 900,
+      service: 1800,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 300,
       priority: 0,
@@ -81,7 +81,7 @@ export class TaskServiceApi {
     {
       id: 27,
       description: 'Atividade 9',
-      service: 1200,
+      service: 2400,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 300,
       priority: 0,
@@ -90,7 +90,7 @@ export class TaskServiceApi {
     {
       id: 28,
       description: 'Atividade 10',
-      service: 600,
+      service: 1200,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 300,
       priority: 0,
@@ -108,7 +108,7 @@ export class TaskServiceApi {
     {
       id: 38,
       description: 'Atividade 12',
-      service: 300,
+      service: 600,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 300,
       priority: 0,
@@ -117,7 +117,7 @@ export class TaskServiceApi {
     {
       id: 39,
       description: 'Atividade 13',
-      service: 900,
+      service: 1800,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 300,
       priority: 0,

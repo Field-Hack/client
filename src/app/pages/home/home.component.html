@@ -1,6 +1,20 @@
 <div class="route-page">
   <app-map></app-map>
 
+  <div class="use-cases">
+    <button class="use-case" mat-fab matTooltip="Caso de uso 1" (click)="changeUseCase('use_1')">
+      1
+    </button>
+
+    <button class="use-case" mat-fab matTooltip="Caso de uso 2" (click)="changeUseCase('use_2')">
+      2
+    </button>
+
+    <button class="use-case" mat-fab matTooltip="Caso de uso 2" (click)="changeUseCase('use_3')">
+      3
+    </button>
+  </div>
+
   <div class="route-actions">
     <button
       class="route-action"
@@ -41,6 +55,6 @@
   svgIcon="apartment"
   class="mouse"
   #mouse
-  [ngClass]="{ 'mouse--on': isAdding() }"
+  [ngClass]="{ 'mouse--on': homeService.isAdding() }"
 >
 </mat-icon>

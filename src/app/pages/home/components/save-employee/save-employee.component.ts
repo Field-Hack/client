@@ -94,7 +94,7 @@ export class SaveEmployeeComponent implements OnInit {
     this.form.get('start_longitude')?.setValue(employee.start[1]);
     this.form.get('end_latitude')?.setValue(employee.end[0]);
     this.form.get('end_longitude')?.setValue(employee.end[1]);
-    this.form.get('time_window_start')?.setValue(employee.time_window[0] / 360);
-    this.form.get('time_window_end')?.setValue(employee.time_window[1] / 360);
+    this.form.get('time_window_start')?.setValue((employee.time_window?.[0] || 0) / 360);
+    this.form.get('time_window_end')?.setValue((employee.time_window?.[1] || 0) / 360);
   }
 }

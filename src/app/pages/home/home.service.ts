@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { ChangeDetectorRef, Injectable, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { EmployeeServiceApi } from 'src/app/core/api/employee/employee.service';
 import { RoutingServiceApi } from 'src/app/core/api/routing/routing.service';
@@ -21,12 +21,11 @@ export class HomeService {
   public ORSResponse = signal<ORSResponse | undefined>(undefined);
   public geoJSONDatas = signal<GeoJSONData[]>([]);
   public isLoading = signal(false);
+  public isAdding = signal(false);
 
   public selectedCoords$ = new Subject<{ lat: number; lng: number }>();
   public openTaskDialog$ = new Subject<Task | undefined>();
   public openEmployeeDialog$ = new Subject<Employee | undefined>();
-
-  private features: google.maps.Polyline[] = [];
 
   private currentColor = 0;
 
@@ -54,9 +53,8 @@ export class HomeService {
     );
     this.geoJSONDatas.set(geoJSONDatas);
 
-    await this.putPins();
-
     this.clearMap();
+    await this.putPins();
 
     for (const geoJSONData of geoJSONDatas) {
       const color = this.getRandomDarkColor();
@@ -84,8 +82,6 @@ export class HomeService {
           (coord: number[]) => new google.maps.LatLng(coord[1], coord[0])
         )
       );
-
-      this.features.push(polyline);
     }
   }
 
@@ -129,9 +125,9 @@ export class HomeService {
       image.style.border = 'none';
       image.style.boxShadow = '0 0 3px #000';
 
-      const marker = (await google.maps.importLibrary('marker')) as any;
+      const markerMaker = (await google.maps.importLibrary('marker')) as any;
 
-      new marker.AdvancedMarkerElement({
+       new markerMaker.AdvancedMarkerElement({
         position: employeeLocationStart,
         map: this.map(),
         content: image,
@@ -167,11 +163,26 @@ export class HomeService {
     `;
   }
 
-  private clearMap(): void {
-    for (const feature of this.features) {
-      feature.setMap(null);
-    }
-    this.features = [];
+  public clearMap(): void {
+    this.map.set(
+      new google.maps.Map(document.getElementById('map') as HTMLElement, {
+        zoom: 14,
+        center: { lat: -20.81368726737007, lng: -49.37250245722454 },
+        mapId: '4504f8b37365c3d0',
+      })
+    );
+
+    this.map()?.addListener('click', (event: any) => {
+      if (!this.isAdding()) {
+        return;
+      }
+
+      this.map()?.setClickableIcons(true);
+      this.map()?.setOptions({ gestureHandling: 'cooperative' });
+      this.isAdding.set(false);
+
+      this.createTask(event.latLng.lat(), event.latLng.lng());
+    });
   }
 
   public attachMessage(marker: google.maps.Marker, task: Task) {
@@ -193,6 +204,7 @@ export class HomeService {
 
   public async createTask(lat: number, long: number): Promise<void> {
     this.isLoading.set(true);
+
     const task = {
       id: this.taskService.tasks().length + 100,
       location: [long, lat] as [number, number],

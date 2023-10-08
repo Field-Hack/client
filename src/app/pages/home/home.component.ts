@@ -40,7 +40,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('mapContainer') public mapContainer?: ElementRef;
   @ViewChild('tasksContainer') public tasksContainer?: ElementRef;
   @ViewChild('employeesContainer') public employeesContainer?: ElementRef;
-  public isAdding = signal(false);
 
   public compiledOnce = signal(false);
 
@@ -56,40 +55,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) {}
 
   public ngOnInit(): void {
-    this.homeService.map.set(
-      new google.maps.Map(document.getElementById('map') as HTMLElement, {
-        zoom: 14,
-        center: { lat: -20.81368726737007, lng: -49.37250245722454 },
-        mapId: '4504f8b37365c3d0',
-      })
-    );
-
-    this.homeService.map()?.addListener('click', (event: any) => {
-      if (!this.isAdding()) {
-        return;
-      }
-
-      this.homeService.map()?.setClickableIcons(true);
-      this.homeService.map()?.setOptions({ gestureHandling: 'cooperative' });
-      this.isAdding.set(false);
-
-      this.homeService.createTask(event.latLng.lat(), event.latLng.lng());
-      this.changeDetectorRef.detectChanges();
-    });
+    this.homeService.clearMap();
 
     document.addEventListener('mousemove', (event) => {
       this.mouseX = event.clientX;
       this.mouseY = event.clientY;
-    });
-
-    this.homeService.openEmployeeDialog$.subscribe(() => {
-      this.homeService.isAddEmployeeActive.set(true);
-      this.employeesContainer?.nativeElement.scrollTo(0, 0);
-    });
-
-    this.homeService.openTaskDialog$.subscribe(() => {
-      this.homeService.isAddTaskActive.set(true);
-      this.tasksContainer?.nativeElement.scrollTo(0, 0);
     });
 
     const animateMouse = () => {
@@ -121,7 +91,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public add(): void {
     this.homeService.map()?.setClickableIcons(false);
     this.homeService.map()?.setOptions({ gestureHandling: 'none' });
-    this.isAdding.set(true);
+    this.homeService.isAdding.set(true);
     this.compiledOnce.set(true);
   }
 
@@ -136,8 +106,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   public async summary(): Promise<void> {
     this.matDialog.open(SummaryComponent, {
-      width: '40vw',
+      width: '800px',
       panelClass: 'employee',
     });
+  }
+
+  public async changeUseCase(useCase: string): Promise<void> {
+    this.homeService.clearMap();
+    this.employeeService.changeUseCase(useCase);
+    this.homeService.putPins();
   }
 }

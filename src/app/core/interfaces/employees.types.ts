@@ -4,7 +4,7 @@ export interface Employee {
   start: [number, number];
   end: [number, number];
   profile: string;
-  time_window: [number, number];
+  time_window?: [number, number];
   max_tasks?: number;
   cost?: {
     fixed: number;

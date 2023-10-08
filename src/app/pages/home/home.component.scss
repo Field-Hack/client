@@ -26,6 +26,36 @@
   transform: translateX(-50%);
 }
 
+.use-cases {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 8px;
+  transform: translateY(-50%);
+}
+
+
+.use-case {
+  transition: transform 0.2s;
+  background-color: #003366;
+
+  &:hover {
+    transform: scale(1.04);
+  }
+
+  mat-icon {
+    color: white;
+  }
+
+  &__disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
 .route-action {
   transition: transform 0.2s;
   background-color: #003366;

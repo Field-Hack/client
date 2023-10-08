@@ -5,48 +5,128 @@ import { Employee } from '../../interfaces/employees.types';
   providedIn: 'root',
 })
 export class EmployeeServiceApi {
-  public employees = signal<Employee[]>([
-    {
-      id: 1,
-      start: [ -49.37733358, -20.85055825 ],
-      end: [ -49.37733358, -20.85055825 ],
-      profile: 'driving-car',
-      name: 'Colaborador 1',
-      time_window: [ 28800, 43200 ],
-      max_tasks: 5,
-      cost: { fixed: 16, per_hour: 8 }
-    },
-    {
-      id: 2,
-      start: [ -49.40626473, -20.82674698 ],
-      end: [ -49.40626473, -20.82674698 ],
-      profile: 'driving-car',
-      name: 'Colaborador 2',
-      time_window: [ 28800, 43200 ],
-      max_tasks: 5,
-      cost: { fixed: 15, per_hour: 19 }
-    },
-    {
-      id: 4,
-      start: [ -49.39668282, -20.77984868 ],
-      end: [ -49.39668282, -20.77984868 ],
-      profile: 'driving-car',
-      name: 'Colaborador 3',
-      time_window: [ 28800, 43200 ],
-      max_tasks: 3,
-      cost: { fixed: 294, per_hour: 10 }
-    },
-    {
-      id: 5,
-      start: [ -49.36486397, -20.82374111 ],
-      end: [ -49.36486397, -20.82374111 ],
-      profile: 'driving-car',
-      name: 'Colaborador 4',
-      time_window: [ 28800, 43200 ],
-      max_tasks: 4,
-      cost: { fixed: 29, per_hour: 3 }
-    }
-  ])
+  public useCases: { [key: string]: Employee[]} = {
+    use_1: [
+      {
+        id: 1,
+        start: [ -49.37733358, -20.85055825 ],
+        end: [ -49.37733358, -20.85055825 ],
+        profile: 'driving-car',
+        name: 'Colaborador 1',
+        time_window: [ 28800, 43200 ],
+        max_tasks: 5,
+        cost: { fixed: 16, per_hour: 8 }
+      },
+      {
+        id: 2,
+        start: [ -49.40626473, -20.82674698 ],
+        end: [ -49.40626473, -20.82674698 ],
+        profile: 'driving-car',
+        name: 'Colaborador 2',
+        time_window: [ 28800, 43200 ],
+        max_tasks: 5,
+        cost: { fixed: 15, per_hour: 19 }
+      },
+      {
+        id: 4,
+        start: [ -49.39668282, -20.77984868 ],
+        end: [ -49.39668282, -20.77984868 ],
+        profile: 'driving-car',
+        name: 'Colaborador 3',
+        time_window: [ 28800, 43200 ],
+        max_tasks: 3,
+        cost: { fixed: 294, per_hour: 10 }
+      },
+      {
+        id: 5,
+        start: [ -49.36486397, -20.82374111 ],
+        end: [ -49.36486397, -20.82374111 ],
+        profile: 'driving-car',
+        name: 'Colaborador 4',
+        time_window: [ 28800, 43200 ],
+        max_tasks: 4,
+        cost: { fixed: 29, per_hour: 3 }
+      }
+    ],
+    use_2: [
+      {
+        id: 1,
+        start: [ -49.37251997812394, -20.81313711471147 ],
+        end: [ -49.37251997812394, -20.81313711471147 ],
+        profile: 'driving-car',
+        name: 'Colaborador 1',
+        time_window: [ 28800, 43200 ],
+        cost: { fixed: 16, per_hour: 8 }
+      },
+      {
+        id: 2,
+        start: [ -49.37251997812394, -20.81313711471147 ],
+        end: [ -49.37251997812394, -20.81313711471147 ],
+        profile: 'driving-car',
+        name: 'Colaborador 2',
+        time_window: [ 28800, 43200 ],
+        cost: { fixed: 15, per_hour: 19 }
+      },
+      {
+        id: 4,
+        start: [ -49.37251997812394, -20.81313711471147 ],
+        end: [ -49.37251997812394, -20.81313711471147 ],
+        profile: 'driving-car',
+        name: 'Colaborador 3',
+        time_window: [ 28800, 43200 ],
+        cost: { fixed: 294, per_hour: 10 }
+      },
+      {
+        id: 5,
+        start: [ -49.37251997812394, -20.81313711471147 ],
+        end: [ -49.37251997812394, -20.81313711471147 ],
+        profile: 'driving-car',
+        name: 'Colaborador 4',
+        time_window: [ 28800, 43200 ],
+        cost: { fixed: 29, per_hour: 3 }
+      }
+    ],
+    use_3: [
+      {
+        id: 1,
+        start: [ -49.37733358, -20.85055825 ],
+        end: [ -49.37251997812394, -20.81313711471147 ],
+        profile: 'driving-car',
+        name: 'Colaborador 1',
+        time_window: [ 28800, 43200 ],
+        cost: { fixed: 16, per_hour: 8 }
+      },
+      {
+        id: 2,
+        start: [ -49.40626473, -20.82674698 ],
+        end: [ -49.37251997812394, -20.81313711471147 ],
+        profile: 'driving-car',
+        name: 'Colaborador 2',
+        time_window: [ 28800, 43200 ],
+        cost: { fixed: 15, per_hour: 19 }
+      },
+      {
+        id: 4,
+        start: [ -49.39668282, -20.77984868 ],
+        end: [ -49.37251997812394, -20.81313711471147 ],
+        profile: 'driving-car',
+        name: 'Colaborador 3',
+        time_window: [ 28800, 43200 ],
+        cost: { fixed: 294, per_hour: 10 }
+      },
+      {
+        id: 5,
+        start: [ -49.36486397, -20.82374111 ],
+        end: [ -49.37251997812394, -20.81313711471147 ],
+        profile: 'driving-car',
+        name: 'Colaborador 4',
+        time_window: [ 28800, 43200 ],
+        cost: { fixed: 29, per_hour: 3 }
+      }
+    ]
+  }
+
+  public employees = signal<Employee[]>(this.useCases['use_1'])
 
   public constructor() {}
 
@@ -70,5 +150,9 @@ export class EmployeeServiceApi {
   public delete(id?: number): void {
     const employees = this.employees();
     this.employees.set(employees.filter((item) => item.id !== id));
+  }
+
+  public changeUseCase(useCase: string): void {
+    this.employees.set(this.useCases[useCase]);
   }
 }
