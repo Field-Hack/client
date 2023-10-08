@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Resumo</h2>
+<mat-dialog-content>
+  <div class="summary" *ngIf="summary">
+    <div class="employee" *ngFor="let employee of summary.employees">
+      <div class="employee__header">
+        {{ employee.name }}
+      </div>
+
+      <div class="employee__body">
+        <div class="employee__title">
+          Atividades
+        </div>
+        <div *ngFor="let task of employee.tasks">
+          &nbsp;&nbsp;- {{ task.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

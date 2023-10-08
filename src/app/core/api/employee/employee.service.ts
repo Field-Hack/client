@@ -11,7 +11,7 @@ export class EmployeeServiceApi {
       start: [ -49.37733358, -20.85055825 ],
       end: [ -49.37733358, -20.85055825 ],
       profile: 'driving-car',
-      name: 'teste',
+      name: 'Colaborador 1',
       time_window: [ 28800, 43200 ],
       max_tasks: 5,
       cost: { fixed: 16, per_hour: 8 }
@@ -21,7 +21,7 @@ export class EmployeeServiceApi {
       start: [ -49.40626473, -20.82674698 ],
       end: [ -49.40626473, -20.82674698 ],
       profile: 'driving-car',
-      name: 'teste',
+      name: 'Colaborador 2',
       time_window: [ 28800, 43200 ],
       max_tasks: 5,
       cost: { fixed: 15, per_hour: 19 }
@@ -31,7 +31,7 @@ export class EmployeeServiceApi {
       start: [ -49.39668282, -20.77984868 ],
       end: [ -49.39668282, -20.77984868 ],
       profile: 'driving-car',
-      name: 'teste',
+      name: 'Colaborador 3',
       time_window: [ 28800, 43200 ],
       max_tasks: 3,
       cost: { fixed: 294, per_hour: 10 }
@@ -41,7 +41,7 @@ export class EmployeeServiceApi {
       start: [ -49.36486397, -20.82374111 ],
       end: [ -49.36486397, -20.82374111 ],
       profile: 'driving-car',
-      name: 'teste',
+      name: 'Colaborador 4',
       time_window: [ 28800, 43200 ],
       max_tasks: 4,
       cost: { fixed: 29, per_hour: 3 }

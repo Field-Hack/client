@@ -8,7 +8,7 @@ export class TaskServiceApi {
   public tasks = signal<Task[]>([
     {
       id: 0,
-      description: 'Albuquerque, Nogueira e Nogueira',
+      description: 'Atividade 1',
       service: 233,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 13,
@@ -17,7 +17,7 @@ export class TaskServiceApi {
     },
     {
       id: 5,
-      description: 'Souza, Costa e Macedo',
+      description: 'Atividade 2',
       service: 329,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 11,
@@ -26,7 +26,7 @@ export class TaskServiceApi {
     },
     {
       id: 22,
-      description: 'Moreira, Albuquerque e Carvalho',
+      description: 'Atividade 3',
       service: 293,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 7,
@@ -35,7 +35,7 @@ export class TaskServiceApi {
     },
     {
       id: 6,
-      description: 'Silva-Moreira',
+      description: 'Atividade 4',
       service: 262,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 6,
@@ -44,7 +44,7 @@ export class TaskServiceApi {
     },
     {
       id: 13,
-      description: 'Moreira-Batista',
+      description: 'Atividade 5',
       service: 261,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 27,
@@ -53,7 +53,7 @@ export class TaskServiceApi {
     },
     {
       id: 20,
-      description: 'Saraiva-Costa',
+      description: 'Atividade 6',
       service: 79,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 30,
@@ -62,7 +62,7 @@ export class TaskServiceApi {
     },
     {
       id: 21,
-      description: 'Souza, Moreira e Melo',
+      description: 'Atividade 7',
       service: 483,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 12,
@@ -71,7 +71,7 @@ export class TaskServiceApi {
     },
     {
       id: 23,
-      description: 'Moraes-Reis',
+      description: 'Atividade 8',
       service: 209,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 28,
@@ -80,7 +80,7 @@ export class TaskServiceApi {
     },
     {
       id: 27,
-      description: 'Nogueira, Albuquerque e Saraiva',
+      description: 'Atividade 9',
       service: 485,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 1,
@@ -89,7 +89,7 @@ export class TaskServiceApi {
     },
     {
       id: 28,
-      description: 'Santos-Saraiva',
+      description: 'Atividade 10',
       service: 6,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 6,
@@ -98,7 +98,7 @@ export class TaskServiceApi {
     },
     {
       id: 29,
-      description: 'Carvalho-Oliveira',
+      description: 'Atividade 11',
       service: 441,
       // time_windows: [ [ 28800, 43200 ] ],
       setup: 29,
@@ -107,7 +107,7 @@ export class TaskServiceApi {
     },
     {
       id: 38,
-      description: 'Oliveira-Silva',
+      description: 'Atividade 12',
       service: 234,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 25,
@@ -116,7 +116,7 @@ export class TaskServiceApi {
     },
     {
       id: 39,
-      description: 'tasasadsasdas',
+      description: 'Atividade 13',
       service: 340,
       // time_windows: [ [ 50400, 64800 ] ],
       setup: 25,

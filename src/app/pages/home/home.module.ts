@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatTreeModule } from '@angular/material/tree';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
@@ -15,6 +16,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SaveTaskComponent } from './components/save-task/save-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SaveEmployeeComponent } from './components/save-employee/save-employee.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { SaveEmployeeComponent } from './components/save-employee/save-employee.
     HomeEmployeeComponent,
     HomeComponent,
     SaveTaskComponent,
-    SaveEmployeeComponent
+    SaveEmployeeComponent,
+    SummaryComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +40,8 @@ import { SaveEmployeeComponent } from './components/save-employee/save-employee.
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTreeModule
   ]
 })
 export class HomeModule { }

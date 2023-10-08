@@ -10,6 +10,8 @@ import australia from './australia.json'
 declare const google : google;
 
 import { trigger, transition, style, animate } from '@angular/animations';
+import { MatDialog } from '@angular/material/dialog';
+import { SummaryComponent } from './components/summary/summary.component';
 
 export const slideOutAnimation = trigger('slideOutAnimation', [
   transition('* => void', [
@@ -39,7 +41,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     public readonly taskService: TaskServiceApi,
     public readonly employeeService: EmployeeServiceApi,
     public readonly homeService: HomeService,
-    private readonly changeDetectorRef: ChangeDetectorRef
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly matDialog: MatDialog
   ) { }
 
   public ngOnInit(): void {
@@ -119,5 +122,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const baseColor = Math.floor(Math.random() * 16777215);
     const darkColor = (baseColor >> darknessLevel) << darknessLevel;
     return '#' + darkColor.toString(16);
+  }
+
+  public async summary(): Promise<void> {
+    this.matDialog.open(SummaryComponent)
   }
 }

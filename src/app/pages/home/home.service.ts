@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { EmployeeServiceApi } from 'src/app/core/api/employee/employee.service';
 import { RoutingServiceApi } from 'src/app/core/api/routing/routing.service';
-import { GeoJSONFeature } from 'src/app/core/api/routing/routins.type';
+import { GeoJSONData, GeoJSONFeature, ORSResponse } from 'src/app/core/api/routing/routins.type';
 import { TaskServiceApi } from 'src/app/core/api/task/task.service';
 import { Employee } from 'src/app/core/interfaces/employees.types';
 import { Task } from 'src/app/core/interfaces/tasks.types';
@@ -14,10 +14,14 @@ export class HomeService {
   public isAddTaskActive = signal(false);
   public isAddEmployeeActive = signal(false);
   public map = signal<google.maps.Map | undefined>(undefined);
+  public ORSResponse = signal<ORSResponse | undefined>(undefined);
+  public geoJSONDatas = signal<GeoJSONData[]>([]);
 
   public selectedCoords$ = new Subject<{ lat: number, lng: number }>();
   public openTaskDialog$ = new Subject<Task | undefined>();
   public openEmployeeDialog$ = new Subject<Employee | undefined>();
+
+  private features: google.maps.Data.Feature[] = [];
 
   public constructor(
     private readonly routingServiceApi: RoutingServiceApi,
@@ -26,17 +30,26 @@ export class HomeService {
   ) { }
 
   public async route(): Promise<void> {
+    if (!this.map()) { return; }
+
     const route = await this.routingServiceApi.route({
       tasks: this.taskService.tasks(),
       employees: this.employeeService.employees()!,
     });
+    this.ORSResponse.set(route);
 
     const geoJSONDatas = await Promise.all(route.routes.map(async (route) => {
       return await this.routingServiceApi.geoJson(route);
     }));
+    this.geoJSONDatas.set(geoJSONDatas);
+
+    this.clearMap();
 
     for (const geoJSONData of geoJSONDatas) {
-      this.map()?.data.addGeoJson(geoJSONData)
+      const features = this.map()?.data.addGeoJson(geoJSONData)
+      if (!features) { continue; }
+      const geojson = features[0];
+      this.features.push(geojson);
     }
   }
 
@@ -109,6 +122,12 @@ export class HomeService {
         </p>
       </div>
     `
+  }
+
+  private clearMap(): void {
+    for (const feature of this.features) {
+      this.map()?.data.remove(feature);
+    }
   }
 
   public attachMessage(

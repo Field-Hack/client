@@ -22,6 +22,7 @@ export class RoutingServiceApi {
 
   public async geoJson(route: Route): Promise<GeoJSONData> {
     return firstValueFrom(this.http.post<GeoJSONData>('http://150.136.218.106:2053/directions', {
+      id: route.vehicle,
       coordinates: route.steps.map(step => step.location),
       radiuses: route.steps.map(step => 5000),
       language: 'pt',
