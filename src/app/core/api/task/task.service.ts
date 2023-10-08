@@ -9,121 +9,121 @@ export class TaskServiceApi {
     {
       id: 0,
       description: 'Atividade 1',
-      service: 233,
+      service: 900,
       // time_windows: [ [ 50400, 64800 ] ],
-      setup: 13,
+      setup: 300,
       priority: 1,
-      location: [ -49.377889520146475,-20.841384601771686 ]
+      location: [-49.377889520146475, -20.841384601771686],
     },
     {
       id: 5,
       description: 'Atividade 2',
-      service: 329,
+      service: 1200,
       // time_windows: [ [ 50400, 64800 ] ],
-      setup: 11,
+      setup: 300,
       priority: 0,
-      location: [ -49.368619805791006,-20.858549567454784 ]
+      location: [-49.368619805791006, -20.858549567454784],
     },
     {
       id: 22,
       description: 'Atividade 3',
-      service: 293,
+      service: 600,
       // time_windows: [ [ 28800, 43200 ] ],
-      setup: 7,
+      setup: 300,
       priority: 1,
-      location: [ -49.39450781, -20.85117604 ]
+      location: [-49.39450781, -20.85117604],
     },
     {
       id: 6,
       description: 'Atividade 4',
-      service: 262,
+      service: 900,
       // time_windows: [ [ 28800, 43200 ] ],
-      setup: 6,
+      setup: 300,
       priority: 0,
-      location: [ -49.371881371953116,-20.81606776441591 ]
+      location: [-49.371881371953116, -20.81606776441591],
     },
     {
       id: 13,
       description: 'Atividade 5',
-      service: 261,
+      service: 1500,
       // time_windows: [ [ 50400, 64800 ] ],
-      setup: 27,
+      setup: 300,
       priority: 0,
-      location: [ -49.364213, -20.82779416 ]
+      location: [-49.364213, -20.82779416],
     },
     {
       id: 20,
       description: 'Atividade 6',
-      service: 79,
+      service: 1200,
       // time_windows: [ [ 28800, 43200 ] ],
-      setup: 30,
+      setup: 300,
       priority: 0,
-      location: [ -49.36738985, -20.77514144 ]
+      location: [-49.36738985, -20.77514144],
     },
     {
       id: 21,
       description: 'Atividade 7',
-      service: 483,
+      service: 600,
       // time_windows: [ [ 50400, 64800 ] ],
-      setup: 12,
+      setup: 300,
       priority: 0,
-      location: [ -49.34685647, -20.78959014 ]
+      location: [-49.34685647, -20.78959014],
     },
     {
       id: 23,
       description: 'Atividade 8',
-      service: 209,
+      service: 900,
       // time_windows: [ [ 50400, 64800 ] ],
-      setup: 28,
+      setup: 300,
       priority: 0,
-      location: [ -49.41450969, -20.82230192 ]
+      location: [-49.41450969, -20.82230192],
     },
     {
       id: 27,
       description: 'Atividade 9',
-      service: 485,
+      service: 1200,
       // time_windows: [ [ 28800, 43200 ] ],
-      setup: 1,
+      setup: 300,
       priority: 0,
-      location: [ -49.39224843, -20.76997104 ]
+      location: [-49.39224843, -20.76997104],
     },
     {
       id: 28,
       description: 'Atividade 10',
-      service: 6,
+      service: 600,
       // time_windows: [ [ 50400, 64800 ] ],
-      setup: 6,
+      setup: 300,
       priority: 0,
-      location: [ -49.39363885458983, -20.79138702645884 ]
+      location: [-49.39363885458983, -20.79138702645884],
     },
     {
       id: 29,
       description: 'Atividade 11',
-      service: 441,
+      service: 900,
       // time_windows: [ [ 28800, 43200 ] ],
-      setup: 29,
+      setup: 300,
       priority: 0,
-      location: [ -49.40315006, -20.83835861 ]
+      location: [-49.40315006, -20.83835861],
     },
     {
       id: 38,
       description: 'Atividade 12',
-      service: 234,
+      service: 300,
       // time_windows: [ [ 50400, 64800 ] ],
-      setup: 25,
+      setup: 300,
       priority: 0,
-      location: [ -49.40945766, -20.83493619 ]
+      location: [-49.40945766, -20.83493619],
     },
     {
       id: 39,
       description: 'Atividade 13',
-      service: 340,
+      service: 900,
       // time_windows: [ [ 50400, 64800 ] ],
-      setup: 25,
+      setup: 300,
       priority: 0,
-      location: [ -49.41707529191406, -20.792282424094214 ]
-    }
-  ])
+      location: [-49.41707529191406, -20.792282424094214],
+    },
+  ]);
 
   public constructor() {}
 
@@ -137,9 +137,11 @@ export class TaskServiceApi {
 
   public edit(task: Task): void {
     const tasks = this.tasks();
-    this.tasks.set(tasks.map((item) => {
-      return item.id === task.id ? task : item;
-    }));
+    this.tasks.set(
+      tasks.map((item) => {
+        return item.id === task.id ? task : item;
+      })
+    );
   }
 
   public delete(id?: number): void {

@@ -27,7 +27,8 @@
               {{ employee.summary.service_duration }} minutos
             </div>
           </div>
-
+        </div>
+        <div class="employee__infos">
           <div class="employee__info">
             <div class="employee__title">
               <mat-icon class="employee__icon">mode_of_travel</mat-icon>
@@ -45,18 +46,12 @@
 
               <span>Custo médio de deslocamento</span>
             </div>
-            <div class="employee__value">
-              R$ {{ employee.summary.cost }}
-            </div>
+            <div class="employee__value">R$ {{ employee.summary.cost }}</div>
           </div>
-
-
         </div>
 
         <div class="employee__info">
-          <div class="employee__title">
-            Atividades
-          </div>
+          <div class="employee__title">Atividades</div>
           <div class="employee__value" *ngFor="let task of employee.tasks">
             &nbsp;&nbsp;- {{ task.description }}
           </div>

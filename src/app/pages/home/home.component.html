@@ -10,18 +10,25 @@
       <mat-icon>route</mat-icon>
     </button>
 
-    <button class="route-action" mat-fab (click)="summary()">
+    <button
+      class="route-action"
+      mat-fab
+      (click)="summary()"
+      [disabled]="!compiledOnce()"
+    >
       <mat-icon>analytics</mat-icon>
     </button>
   </div>
 </div>
 
 <div *ngIf="homeService.isLoading()" class="loading">
-  <img src="assets/route-transparent.gif" alt="para de ser cego podre">
+  <img src="/assets/route-transparent.gif" alt="para de ser cego podre" />
 </div>
 
 <mat-icon
   fontIcon="location_on"
-  class="mouse" #mouse
-  [ngClass]="{ 'mouse--on': isAdding() }">
+  class="mouse"
+  #mouse
+  [ngClass]="{ 'mouse--on': isAdding() }"
+>
 </mat-icon>
