@@ -61,7 +61,7 @@ export class HomeService {
 
       const polyline = new google.maps.Polyline({
         strokeColor: color,
-        strokeOpacity: 1.0,
+        strokeOpacity: 1,
         strokeWeight: 3,
         map: this.map(),
         icons: [
@@ -75,6 +75,18 @@ export class HomeService {
             repeat: '100px',
           },
         ],
+      });
+
+      polyline.addListener('mouseover', () => {
+        polyline.setOptions({
+          strokeColor: this.mostDarkColor(color),
+        });
+      });
+
+      polyline.addListener('mouseout', () => {
+        polyline.setOptions({
+          strokeColor: color,
+        });
       });
 
       polyline.setPath(
@@ -125,13 +137,25 @@ export class HomeService {
       image.style.border = 'none';
       image.style.boxShadow = '0 0 3px #000';
 
-      const markerMaker = (await google.maps.importLibrary('marker')) as any;
+      const newMarker = (await google.maps.importLibrary('marker')) as any;
 
-       new markerMaker.AdvancedMarkerElement({
+      const marker = new newMarker.AdvancedMarkerElement({
         position: employeeLocationStart,
         map: this.map(),
         content: image,
+      })
+
+      const infowindow = new google.maps.InfoWindow({
+        content: this.formatMessageEmployee(employee),
+        maxWidth: 300,
+        minWidth: 100,
       });
+
+      marker.addEventListener('gmp-click', () => {
+        infowindow.open(this.map(), marker);
+      });
+
+
     }
   }
 
@@ -185,6 +209,31 @@ export class HomeService {
     });
   }
 
+  private formatMessageEmployee(employee: Employee): string {
+    return `
+      <div style="border-radius: 5px; padding: 10px; overflow: hidden;">
+        <h4 style="color: #333; font-size: 18px; margin-bottom: 10px;">${
+          employee.name
+        }</h4>
+        <p style="color: #666; font-size: 14px; margin-bottom: 5px;">
+          <strong>Id:</strong> ${employee.id}
+        </p>
+        <p style="color: #666; font-size: 14px; margin-bottom: 5px;">
+          <strong>Inicio (Lat/Lng):</strong> ${[...employee.start]
+            .reverse()
+            .map((cord) => cord.toFixed(6))
+            .join(', ')}
+        </p>
+        <p style="color: #666; font-size: 14px; margin-bottom: 5px;">
+          <strong>Fim (Lat/Lng):</strong> ${[...employee.end]
+            .reverse()
+            .map((cord) => cord.toFixed(6))
+            .join(', ')}
+        </p>
+      </div>
+    `
+  }
+
   public attachMessage(marker: google.maps.Marker, task: Task) {
     const message = this.formatMessageTask(task);
     const infowindow = new google.maps.InfoWindow({
@@ -227,8 +276,15 @@ export class HomeService {
     const baseColor = ['#FF4136', '#2ECC40 ', '#0074D9', '#FF851B'];
     const color = baseColor[this.currentColor];
     this.currentColor =
-      this.currentColor === baseColor.length - 1 ? 0 : this.currentColor + 1;
-    console.log(color);
+    this.currentColor === baseColor.length - 1 ? 0 : this.currentColor + 1;
     return color;
+  }
+
+  public mostDarkColor(color: string): string {
+    const baseColor = ['#FF4136', '#2ECC40 ', '#0074D9', '#FF851B'];
+
+    const baseColorDarker = ['#D90000', '#1E7E34', '#004C8C', '#D15B00'];
+    const index = baseColor.indexOf(color);
+    return baseColorDarker[index];
   }
 }
