@@ -34,43 +34,49 @@ export class RoutingServiceApi {
     employees: Employee[];
   }): Promise<ORSResponse> {
     return firstValueFrom(
-      this.http.post<ORSResponse>('http://150.136.218.106:2053/optimization', {
-        jobs: tasks,
-        vehicles: employees,
-      })
+      this.http.post<ORSResponse>(
+        'https://openrouter.jpbm.dev:2053/optimization',
+        {
+          jobs: tasks,
+          vehicles: employees,
+        }
+      )
     );
   }
 
   public async geoJson(route: Route): Promise<GeoJSONData> {
     return firstValueFrom(
-      this.http.post<GeoJSONData>('http://150.136.218.106:2053/directions', {
-        id: route.vehicle,
-        coordinates: route.steps.map((step) => step.location),
-        radiuses: route.steps.map((step) => 5000),
-        language: 'pt',
-        extra_info: [
-          'steepness',
-          'suitability',
-          'surface',
-          'waytype',
-          'tollways',
-          'waycategory',
-          'shadow',
-          'noise',
-          'green',
-          'countryinfo',
-          'roadaccessrestrictions',
-          'traildifficulty',
-        ],
-        attributes: ['avgspeed', 'detourfactor', 'percentage'],
-      })
+      this.http.post<GeoJSONData>(
+        'https://openrouter.jpbm.dev:2053/directions',
+        {
+          id: route.vehicle,
+          coordinates: route.steps.map((step) => step.location),
+          radiuses: route.steps.map((step) => 5000),
+          language: 'pt',
+          extra_info: [
+            'steepness',
+            'suitability',
+            'surface',
+            'waytype',
+            'tollways',
+            'waycategory',
+            'shadow',
+            'noise',
+            'green',
+            'countryinfo',
+            'roadaccessrestrictions',
+            'traildifficulty',
+          ],
+          attributes: ['avgspeed', 'detourfactor', 'percentage'],
+        }
+      )
     );
   }
 
   public async fetchResumeCompletion(
     data: unknown
   ): Promise<Subject<ChatCompletionChunk>> {
-    const eventSource = await fetch('http://150.136.218.106:2053/resume', {
+    const eventSource = await fetch('https://openrouter.jpbm.dev:2053/resume', {
       body: JSON.stringify(data),
       method: 'POST',
       keepalive: true,
