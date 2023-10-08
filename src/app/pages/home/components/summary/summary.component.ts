@@ -116,7 +116,7 @@ export class SummaryComponent implements OnInit {
             (data) =>
               data +
               chatCompletion.choices.reduce(
-                (acc, choice) => acc + choice.delta.content,
+                (acc, choice) => acc + choice.delta?.content || '',
                 ''
               )
           );

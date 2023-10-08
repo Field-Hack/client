@@ -1,60 +1,7 @@
 <div class="route-page">
   <app-map></app-map>
-
-  <div class="use-cases">
-    <button class="use-case" mat-fab matTooltip="Caso de uso 1" (click)="changeUseCase('use_1')">
-      1
-    </button>
-
-    <button class="use-case" mat-fab matTooltip="Caso de uso 2" (click)="changeUseCase('use_2')">
-      2
-    </button>
-
-    <button class="use-case" mat-fab matTooltip="Caso de uso 3" (click)="changeUseCase('use_3')">
-      3
-    </button>
-  </div>
-
-  <div class="route-actions">
-    <button
-      class="route-action"
-      mat-fab
-      (click)="add()"
-      matTooltip="Adicionar uma nova rota"
-    >
-      <mat-icon>add</mat-icon>
-    </button>
-
-    <button
-      class="route-action"
-      mat-fab
-      (click)="routing()"
-      matTooltip="Realizar a roteirização"
-      >
-      <mat-icon>route</mat-icon>
-    </button>
-
-    <button
-      class="route-action"
-      mat-fab
-      (click)="summary()"
-      [disabled]="!compiledOnce()"
-      [ngClass]="{'route-action__disabled': !compiledOnce()}"
-      matTooltip="Ver o resumo da roteirização"
-    >
-      <mat-icon>analytics</mat-icon>
-    </button>
-  </div>
 </div>
 
 <div *ngIf="homeService.isLoading()" class="loading">
-  <img src="/assets/route-transparent.gif"  />
+  <img src="/assets/route-transparent.gif" />
 </div>
-
-<mat-icon
-  svgIcon="apartment"
-  class="mouse"
-  #mouse
-  [ngClass]="{ 'mouse--on': homeService.isAdding() }"
->
-</mat-icon>

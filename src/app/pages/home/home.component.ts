@@ -14,12 +14,12 @@ import { google } from 'google-maps';
 import { MatMiniFabButton } from '@angular/material/button';
 import { HomeService } from './home.service';
 import australia from './australia.json';
+import { coords } from './coords';
 
 declare const google: google;
 
 import { trigger, transition, style, animate } from '@angular/animations';
 import { MatDialog } from '@angular/material/dialog';
-import { SummaryComponent } from './components/summary/summary.component';
 
 export const slideOutAnimation = trigger('slideOutAnimation', [
   transition('* => void', [
@@ -43,9 +43,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   public compiledOnce = signal(false);
 
-  private mouseX: number = 0;
-  private mouseY: number = 0;
-
   public constructor(
     public readonly taskService: TaskServiceApi,
     public readonly employeeService: EmployeeServiceApi,
@@ -56,25 +53,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   public ngOnInit(): void {
     this.homeService.clearMap();
-
-    document.addEventListener('mousemove', (event) => {
-      this.mouseX = event.clientX;
-      this.mouseY = event.clientY;
-    });
-
-    const animateMouse = () => {
-      if (!this.mouse) {
-        requestAnimationFrame(animateMouse);
-        return;
-      }
-
-      this.mouse._elementRef.nativeElement.style.left = `${this.mouseX}px`;
-      this.mouse._elementRef.nativeElement.style.top = `${this.mouseY}px`;
-
-      requestAnimationFrame(animateMouse);
-    };
-
-    animateMouse();
   }
 
   public ngAfterViewInit() {
@@ -83,17 +61,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         strokeWeight: 3,
       };
     });
-
-    this.homeService.putPins();
-
-    this.homeService.map()?.data.addGeoJson(australia);
-
-    this.homeService.map()?.data.setStyle((feature: any) => {
-      return {
-        fillColor: '#0055ff',
-        strokeWeight: 1,
-      };
-    });
+    this.populateTerritories();
   }
 
   public add(): void {
@@ -112,13 +80,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.compiledOnce.set(true);
   }
 
-  public async summary(): Promise<void> {
-    this.matDialog.open(SummaryComponent, {
-      width: '800px',
-      panelClass: 'employee',
-    });
-  }
-
   public async changeUseCase(useCase: string): Promise<void> {
     this.homeService.clearMap();
     this.employeeService.changeUseCase(useCase);
@@ -131,5 +92,104 @@ export class HomeComponent implements OnInit, AfterViewInit {
         strokeWeight: 1,
       };
     });
+  }
+
+  private populateTerritories(): void {
+    const {
+      sjrp,
+      sjrpZn,
+      sjrpZs,
+      mirassol,
+      bahia,
+      minasGerais,
+      rioDeJaneiro,
+      saoPaulo,
+      invaldSubTerritory,
+      validSubTerritory,
+      circleTerritorySjrp,
+      invalidCircleTerritoryOutSjrp,
+      validCircleTerritoryOutSjrp,
+    } = coords;
+
+    this.drawPolygon(mirassol);
+    this.drawPolygon(sjrp, false, true);
+    this.drawPolygon(sjrpZn, false, true, true);
+    this.drawPolygon(sjrpZs, false, true, true);
+    this.drawPolygon(bahia, false, true);
+    this.drawPolygon(minasGerais, false, true);
+    this.drawPolygon(rioDeJaneiro, false, true);
+    this.drawPolygon(invaldSubTerritory, true, false, true);
+    this.drawPolygon(validSubTerritory, false, false, true);
+
+    this.drawCircle(saoPaulo, false, true);
+    this.drawCircle(circleTerritorySjrp, false, false, true);
+    this.drawCircle(invalidCircleTerritoryOutSjrp, true, false);
+    this.drawCircle(validCircleTerritoryOutSjrp);
+  }
+
+  private drawPolygon(
+    coords: {
+      lat: number;
+      lng: number;
+    }[],
+    invalid?: boolean,
+    baseTerritory?: boolean,
+    isSubTerritory?: boolean
+  ): void {
+    const color = this.getRandomColor(invalid, baseTerritory, isSubTerritory);
+
+    const polygon = new google.maps.Polygon({
+      paths: coords,
+      strokeColor: color,
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: color,
+      fillOpacity: 0.35,
+    });
+
+    polygon.setMap(this.homeService.map()!);
+  }
+
+  private drawCircle(
+    circle: {
+      center: {
+        lat: number;
+        lng: number;
+      };
+      radius: number;
+    },
+    invalid?: boolean,
+    baseTerritory?: boolean,
+    isSubTerritory?: boolean
+  ): void {
+    const color = this.getRandomColor(invalid, baseTerritory, isSubTerritory);
+
+    const drawedCircle = new google.maps.Circle({
+      strokeColor: color,
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: color,
+      fillOpacity: 0.35,
+      center: circle.center,
+      radius: circle.radius,
+    });
+
+    drawedCircle.setMap(this.homeService.map()!);
+  }
+
+  private getRandomColor(
+    invalid?: boolean,
+    baseTerritory?: boolean,
+    isSubTerritory?: boolean
+  ): string {
+    if (baseTerritory) {
+      return isSubTerritory ? '#004BE0' : '#0055ff';
+    }
+
+    if (invalid) {
+      return isSubTerritory ? '#FC3868' : '#ff0000';
+    }
+
+    return '#12b886';
   }
 }

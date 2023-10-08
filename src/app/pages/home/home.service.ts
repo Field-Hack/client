@@ -44,6 +44,7 @@ export class HomeService {
       tasks: this.taskService.tasks(),
       employees: this.employeeService.employees()!,
     });
+
     this.ORSResponse.set(route);
 
     const geoJSONDatas = await Promise.all(
@@ -51,6 +52,7 @@ export class HomeService {
         return await this.routingServiceApi.geoJson(route);
       })
     );
+
     this.geoJSONDatas.set(geoJSONDatas);
 
     this.clearMap();
@@ -143,7 +145,7 @@ export class HomeService {
         position: employeeLocationStart,
         map: this.map(),
         content: image,
-      })
+      });
 
       const infowindow = new google.maps.InfoWindow({
         content: this.formatMessageEmployee(employee),
@@ -154,8 +156,6 @@ export class HomeService {
       marker.addEventListener('gmp-click', () => {
         infowindow.open(this.map(), marker);
       });
-
-
     }
   }
 
@@ -231,7 +231,7 @@ export class HomeService {
             .join(', ')}
         </p>
       </div>
-    `
+    `;
   }
 
   public attachMessage(marker: google.maps.Marker, task: Task) {
@@ -276,7 +276,7 @@ export class HomeService {
     const baseColor = ['#FF4136', '#2ECC40 ', '#0074D9', '#FF851B'];
     const color = baseColor[this.currentColor];
     this.currentColor =
-    this.currentColor === baseColor.length - 1 ? 0 : this.currentColor + 1;
+      this.currentColor === baseColor.length - 1 ? 0 : this.currentColor + 1;
     return color;
   }
 
