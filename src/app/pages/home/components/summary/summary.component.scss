@@ -30,6 +30,12 @@
     gap: 8px;
   }
 
+  @media (max-width: 767px) {
+    &__infos {
+      flex-direction: column;
+    }
+  }
+
   &__info {
     display: flex;
     flex-direction: column;
