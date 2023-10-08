@@ -7,16 +7,55 @@
       </div>
 
       <div class="employee__body">
-        <div class="employee__title">
-          Atividades
+        <div class="employee__infos">
+          <div class="employee__info">
+            <div class="employee__title">
+              Tempo médio de deslocamento
+            </div>
+            <div class="employee__value">
+              {{ employee.summary.route_duration }} minutos
+            </div>
+          </div>
+
+          <div class="employee__info">
+            <div class="employee__title">
+              Tempo médio de atendimento
+            </div>
+            <div class="employee__value">
+              {{ employee.summary.service_duration }} minutos
+            </div>
+          </div>
+
+          <div class="employee__info">
+            <div class="employee__title">
+              Distancia percorrida
+            </div>
+            <div class="employee__value">
+              {{ employee.summary.distance }} km
+            </div>
+          </div>
+
+          <div class="employee__info">
+            <div class="employee__title">
+              Custo médio de deslocamento
+            </div>
+            <div class="employee__value">
+              R$ {{ employee.summary.cost }}
+            </div>
+          </div>
+
+
         </div>
-        <div *ngFor="let task of employee.tasks">
-          &nbsp;&nbsp;- {{ task.description }}
+
+        <div class="employee__info">
+          <div class="employee__title">
+            Atividades
+          </div>
+          <div class="employee__value" *ngFor="let task of employee.tasks">
+            &nbsp;&nbsp;- {{ task.description }}
+          </div>
         </div>
       </div>
     </div>
   </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Fechar</button>
-</mat-dialog-actions>

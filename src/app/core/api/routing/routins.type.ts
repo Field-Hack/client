@@ -155,9 +155,16 @@ export interface GeoJSONFeature {
 export interface GeoJSONData {
   type: "FeatureCollection";
   metadata: {
+    id: number;
     attribution: string;
     service: string;
     timestamp: number;
+    sumary: {
+      avgSpeed: number;
+      detourfactor: number;
+      distance: number;
+      duration: number;
+    }
     query: {
       coordinates: [number, number][];
       profile: string;

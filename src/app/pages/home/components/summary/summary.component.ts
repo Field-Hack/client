@@ -7,8 +7,15 @@ interface Summary {
   employees: {
     name: string;
     avatar_url: string | undefined;
+    summary: {
+      route_duration: string;
+      service_duration: string;
+      distance: string;
+      cost: string;
+    },
     tasks: {
-      description: string | undefined;
+      description: string;
+      priority: number;
     }[]
   }[]
 }
@@ -32,6 +39,7 @@ export class SummaryComponent implements OnInit {
     const employeesFromList = this.employeeService.employees();
     const tasksFromList = this.taskService.tasks();
     const ORSResponse = this.homeService.ORSResponse();
+    const geoJSONDatas = this.homeService.geoJSONDatas();
     if (!ORSResponse) { return; }
 
     const employees: Summary['employees'] = []
@@ -39,19 +47,29 @@ export class SummaryComponent implements OnInit {
       const route = ORSResponse.routes.find((route) => route.vehicle === employee.id);
       if (!route) { continue; }
 
+      const direction = geoJSONDatas.find(direction => direction.metadata.id === employee.id)
+      if (!direction) { continue; }
+
       const employeeTasks = route.steps.filter((step) => {
         return tasksFromList.find(task => task.id === step.job)
       }).map((step) => {
         const task = tasksFromList.find(task => task.id === step.job);
 
         return {
-          description: task?.description
+          description: task?.description || 'Sem descrição',
+          priority: task?.priority || 0
         }
       });
 
       employees.push({
         name: employee.name,
         avatar_url: employee.avatar_url,
+        summary: {
+          route_duration: (direction.metadata.sumary.duration / 60).toFixed(2),
+          service_duration: (route.service / 60).toFixed(2),
+          distance: (direction.metadata.sumary.distance / 1000).toFixed(1),
+          cost: (route.cost / 100).toFixed(2),
+        },
         tasks: employeeTasks
       })
     }

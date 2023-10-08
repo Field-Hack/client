@@ -1,5 +1,5 @@
 .employee {
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   border: thin solid #003366;
   border-radius: 8px;
 
@@ -14,5 +14,21 @@
 
   &__body {
     padding: 8px;
+  }
+
+  &__infos {
+    margin-bottom: 16px;
+    display: flex;
+    gap: 8px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__title {
+    font-weight: bold;
   }
 }
