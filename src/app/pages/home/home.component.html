@@ -2,11 +2,21 @@
   <app-map></app-map>
 
   <div class="route-actions">
-    <button class="route-action" mat-fab (click)="add()">
+    <button
+      class="route-action"
+      mat-fab
+      (click)="add()"
+      matTooltip="Adicionar uma nova rota"
+    >
       <mat-icon>add</mat-icon>
     </button>
 
-    <button class="route-action" mat-fab (click)="routing()">
+    <button
+      class="route-action"
+      mat-fab
+      (click)="routing()"
+      matTooltip="Realizar a roteirização"
+      >
       <mat-icon>route</mat-icon>
     </button>
 
@@ -15,6 +25,8 @@
       mat-fab
       (click)="summary()"
       [disabled]="!compiledOnce()"
+      [ngClass]="{'route-action__disabled': !compiledOnce()}"
+      matTooltip="Ver o resumo da roteirização"
     >
       <mat-icon>analytics</mat-icon>
     </button>
@@ -26,7 +38,7 @@
 </div>
 
 <mat-icon
-  fontIcon="location_on"
+  svgIcon="apartment"
   class="mouse"
   #mouse
   [ngClass]="{ 'mouse--on': isAdding() }"

@@ -17,6 +17,7 @@ import { SaveTaskComponent } from './components/save-task/save-task.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SaveEmployeeComponent } from './components/save-employee/save-employee.component';
 import { SummaryComponent } from './components/summary/summary.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SummaryComponent } from './components/summary/summary.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTreeModule
+    MatTreeModule,
+    MatTooltipModule
   ]
 })
 export class HomeModule { }
