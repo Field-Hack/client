@@ -78,7 +78,6 @@ export class HomeService {
 
     for (const employee of this.employeeService.employees()!) {
       const employeeLocationStart = new google.maps.LatLng(employee.start[1], employee.start[0]);
-      const employeeLocationEnd = new google.maps.LatLng(employee.end[1], employee.end[0]);
 
       const image = new Image()
       image.src = 'https://i.pravatar.cc/150?u=' + employee.id;
@@ -158,7 +157,7 @@ export class HomeService {
       priority: 30,
       service: 500,
       setup: 5,
-      description: 'Task ' + this.taskService.tasks().length
+      description: 'Atividade ' + this.taskService.tasks().length
     }
 
     this.taskService.create(task);

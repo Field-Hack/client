@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   private mouseX: number = 0;
   private mouseY: number = 0;
+  private currentColor: number = 0;
 
   public constructor(
     public readonly taskService: TaskServiceApi,
@@ -98,8 +99,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public ngAfterViewInit() {
     this.homeService.map()?.data.setStyle((feature: any) => {
       return /** @type {!google.maps.Data.StyleOptions} */ {
-        fillColor: this.getRandomDarkColor(5),
-        strokeColor:this.getRandomDarkColor(5),
+        strokeColor: this.getRandomDarkColor(),
         strokeWeight: 3,
       };
     });
@@ -118,10 +118,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
     await this.homeService.route();
   }
 
-  public getRandomDarkColor(darknessLevel: number): string {
-    const baseColor = Math.floor(Math.random() * 16777215);
-    const darkColor = (baseColor >> darknessLevel) << darknessLevel;
-    return '#' + darkColor.toString(16);
+  public getRandomDarkColor(): string {
+    const baseColor = [ '#FF4136', '#2ECC40 ', '#0074D9', '#FF851B' ];
+    const color = baseColor[this.currentColor];
+    this.currentColor = this.currentColor === baseColor.length - 1 ? 0 : this.currentColor + 1;
+    console.log(color);
+    return color;
   }
 
   public async summary(): Promise<void> {
