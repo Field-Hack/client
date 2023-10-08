@@ -16,6 +16,7 @@ export class HomeService {
   public map = signal<google.maps.Map | undefined>(undefined);
   public ORSResponse = signal<ORSResponse | undefined>(undefined);
   public geoJSONDatas = signal<GeoJSONData[]>([]);
+  public isLoading = signal(false);
 
   public selectedCoords$ = new Subject<{ lat: number, lng: number }>();
   public openTaskDialog$ = new Subject<Task | undefined>();
@@ -42,6 +43,8 @@ export class HomeService {
       return await this.routingServiceApi.geoJson(route);
     }));
     this.geoJSONDatas.set(geoJSONDatas);
+
+    await this.putPins();
 
     this.clearMap();
 
@@ -70,6 +73,7 @@ export class HomeService {
       });
 
       this.attachMessage(createdMarker, task);
+
 
       this.map()?.fitBounds(bounds);
 
@@ -151,6 +155,7 @@ export class HomeService {
   }
 
   public async  createTask(lat: number, long: number): Promise<void> {
+    this.isLoading.set(true);
     const task = {
       id: this.taskService.tasks().length + 100,
       location: [long, lat] as [number, number],
@@ -165,5 +170,7 @@ export class HomeService {
     await this.putPins();
 
     await this.route();
+
+    this.isLoading.set(false);
   }
 }

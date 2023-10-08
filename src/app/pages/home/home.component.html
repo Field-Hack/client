@@ -16,6 +16,10 @@
   </div>
 </div>
 
+<div *ngIf="homeService.isLoading()" class="loading">
+  <img src="assets/route-transparent.gif" alt="para de ser cego podre">
+</div>
+
 <mat-icon
   fontIcon="location_on"
   class="mouse" #mouse

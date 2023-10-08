@@ -115,7 +115,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   public async routing(): Promise<void> {
+    this.homeService.isLoading.set(true);
+
     await this.homeService.route();
+
+    this.homeService.isLoading.set(false);
   }
 
   public getRandomDarkColor(): string {

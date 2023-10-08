@@ -29,6 +29,13 @@
   }
 
   &__title {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-weight: bold;
+
+    mat-icon {
+      font-size: 20px;
+    }
   }
 }
