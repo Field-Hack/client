@@ -95,11 +95,15 @@ export class RoutingServiceApi {
           const chunkString = new TextDecoder().decode(value);
 
           for (const chunk of chunkString.split('\n')) {
-            if (!chunk || chunk.includes('data: [DONE]')) {
+            if (!chunk || chunk.includes('DONE')) {
               continue;
             }
 
             const parsedChunk = JSON.parse(chunk.split('data: ')[1]);
+
+            if (!parsedChunk || !parsedChunk.choices) {
+              continue;
+            }
 
             subject.next(parsedChunk);
           }
