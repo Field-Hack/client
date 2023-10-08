@@ -1,7 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { EmployeeServiceApi } from 'src/app/core/api/employee/employee.service';
 import { TaskServiceApi } from 'src/app/core/api/task/task.service';
 import { HomeService } from '../../home.service';
+import { RoutingServiceApi } from 'src/app/core/api/routing/routing.service';
 
 interface Summary {
   employees: {
@@ -12,12 +19,12 @@ interface Summary {
       service_duration: string;
       distance: string;
       cost: string;
-    },
+    };
     tasks: {
       description: string;
       priority: number;
-    }[]
-  }[]
+    }[];
+  }[];
 }
 
 @Component({
@@ -29,37 +36,54 @@ interface Summary {
 export class SummaryComponent implements OnInit {
   public summary?: Summary;
 
+  public calledCompletion = signal(false);
+
+  public completionText = signal('');
+
   public constructor(
     private readonly taskService: TaskServiceApi,
     private readonly employeeService: EmployeeServiceApi,
-    private readonly homeService: HomeService
-  ) { }
+    private readonly homeService: HomeService,
+    private readonly routingServiceApi: RoutingServiceApi
+  ) {}
 
   public ngOnInit(): void {
     const employeesFromList = this.employeeService.employees();
     const tasksFromList = this.taskService.tasks();
     const ORSResponse = this.homeService.ORSResponse();
     const geoJSONDatas = this.homeService.geoJSONDatas();
-    if (!ORSResponse) { return; }
+    if (!ORSResponse) {
+      return;
+    }
 
-    const employees: Summary['employees'] = []
+    const employees: Summary['employees'] = [];
     for (const employee of employeesFromList) {
-      const route = ORSResponse.routes.find((route) => route.vehicle === employee.id);
-      if (!route) { continue; }
+      const route = ORSResponse.routes.find(
+        (route) => route.vehicle === employee.id
+      );
+      if (!route) {
+        continue;
+      }
 
-      const direction = geoJSONDatas.find(direction => direction.metadata.id === employee.id)
-      if (!direction) { continue; }
+      const direction = geoJSONDatas.find(
+        (direction) => direction.metadata.id === employee.id
+      );
+      if (!direction) {
+        continue;
+      }
 
-      const employeeTasks = route.steps.filter((step) => {
-        return tasksFromList.find(task => task.id === step.job)
-      }).map((step) => {
-        const task = tasksFromList.find(task => task.id === step.job);
+      const employeeTasks = route.steps
+        .filter((step) => {
+          return tasksFromList.find((task) => task.id === step.job);
+        })
+        .map((step) => {
+          const task = tasksFromList.find((task) => task.id === step.job);
 
-        return {
-          description: task?.description || 'Sem descrição',
-          priority: task?.priority || 0
-        }
-      });
+          return {
+            description: task?.description || 'Sem descrição',
+            priority: task?.priority || 0,
+          };
+        });
 
       employees.push({
         name: employee.name,
@@ -70,10 +94,34 @@ export class SummaryComponent implements OnInit {
           distance: (direction.metadata.sumary.distance / 1000).toFixed(1),
           cost: (route.cost / 100).toFixed(2),
         },
-        tasks: employeeTasks
-      })
+        tasks: employeeTasks,
+      });
     }
 
-    this.summary = { employees }
+    this.summary = { employees };
+  }
+
+  public async onTabChange(event: any): Promise<void> {
+    console.log(event);
+
+    if (event.index === 1 && !this.calledCompletion()) {
+      this.calledCompletion.set(true);
+      const subject = await this.routingServiceApi.fetchResumeCompletion(
+        this.summary
+      );
+
+      subject.subscribe((chatCompletion) => {
+        if (chatCompletion) {
+          this.completionText.update(
+            (data) =>
+              data +
+              chatCompletion.choices.reduce(
+                (acc, choice) => acc + choice.delta.content,
+                ''
+              )
+          );
+        }
+      });
+    }
   }
 }

@@ -1,62 +1,70 @@
-<h2 mat-dialog-title>Resumo</h2>
 <mat-dialog-content>
-  <div class="summary" *ngIf="summary">
-    <div class="employee" *ngFor="let employee of summary.employees">
-      <div class="employee__header">
-        {{ employee.name }}
+  <mat-tab-group (selectedTabChange)="onTabChange($event)">
+    <mat-tab label="Resumo">
+      <div class="summary" *ngIf="summary">
+        <div class="employee" *ngFor="let employee of summary.employees">
+          <div class="employee__header">
+            {{ employee.name }}
+          </div>
+
+          <div class="employee__body">
+            <div class="employee__infos">
+              <div class="employee__info">
+                <div class="employee__title">
+                  <mat-icon class="employee__icon">schedule_send</mat-icon>
+                  <span>Tempo médio de deslocamento</span>
+                </div>
+                <div class="employee__value">
+                  {{ employee.summary.route_duration }} minutos
+                </div>
+              </div>
+
+              <div class="employee__info">
+                <div class="employee__title">
+                  <mat-icon class="employee__icon">history</mat-icon>
+                  <span>Tempo médio de atendimento</span>
+                </div>
+                <div class="employee__value">
+                  {{ employee.summary.service_duration }} minutos
+                </div>
+              </div>
+            </div>
+            <div class="employee__infos">
+              <div class="employee__info">
+                <div class="employee__title">
+                  <mat-icon class="employee__icon">mode_of_travel</mat-icon>
+
+                  <span>Distancia percorrida</span>
+                </div>
+                <div class="employee__value">
+                  {{ employee.summary.distance }} km
+                </div>
+              </div>
+
+              <div class="employee__info">
+                <div class="employee__title">
+                  <mat-icon class="employee__icon">attach_money</mat-icon>
+
+                  <span>Custo médio de deslocamento</span>
+                </div>
+                <div class="employee__value">
+                  R$ {{ employee.summary.cost }}
+                </div>
+              </div>
+            </div>
+
+            <div class="employee__info">
+              <div class="employee__title">Atividades</div>
+              <div class="employee__value" *ngFor="let task of employee.tasks">
+                &nbsp;&nbsp;- {{ task.description }}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="employee__body">
-        <div class="employee__infos">
-          <div class="employee__info">
-            <div class="employee__title">
-              <mat-icon class="employee__icon">schedule_send</mat-icon>
-              <span>Tempo médio de deslocamento</span>
-            </div>
-            <div class="employee__value">
-              {{ employee.summary.route_duration }} minutos
-            </div>
-          </div>
-
-          <div class="employee__info">
-            <div class="employee__title">
-              <mat-icon class="employee__icon">history</mat-icon>
-              <span>Tempo médio de atendimento</span>
-            </div>
-            <div class="employee__value">
-              {{ employee.summary.service_duration }} minutos
-            </div>
-          </div>
-        </div>
-        <div class="employee__infos">
-          <div class="employee__info">
-            <div class="employee__title">
-              <mat-icon class="employee__icon">mode_of_travel</mat-icon>
-
-              <span>Distancia percorrida</span>
-            </div>
-            <div class="employee__value">
-              {{ employee.summary.distance }} km
-            </div>
-          </div>
-
-          <div class="employee__info">
-            <div class="employee__title">
-              <mat-icon class="employee__icon">attach_money</mat-icon>
-
-              <span>Custo médio de deslocamento</span>
-            </div>
-            <div class="employee__value">R$ {{ employee.summary.cost }}</div>
-          </div>
-        </div>
-
-        <div class="employee__info">
-          <div class="employee__title">Atividades</div>
-          <div class="employee__value" *ngFor="let task of employee.tasks">
-            &nbsp;&nbsp;- {{ task.description }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </mat-tab>
+    <mat-tab label="Análise"
+      ><div class="summary"><span [innerHTML]="completionText()"></span></div
+    ></mat-tab>
+  </mat-tab-group>
 </mat-dialog-content>

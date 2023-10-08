@@ -85,7 +85,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
 
     this.homeService.putPins();
-    this.homeService.map()?.data.addGeoJson(australia);
+    const polyline = new google.maps.Polyline({
+      strokeColor: '#0055ff',
+      strokeOpacity: 1.0,
+      strokeWeight: 3,
+      map: this.homeService.map(),
+      icons: [
+        {
+          icon: {
+            path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+            strokeColor: '#0055ff',
+            strokeWeight: 2,
+          },
+          offset: '100%',
+          repeat: '100px',
+        },
+      ],
+    });
+
+    // polyline.setPath(
+    //   geoJSONData.features[0].geometry.coordinates.map(
+    //     (coord: number[]) => new google.maps.LatLng(coord[1], coord[0])
+    //   )
+    // );
   }
 
   public add(): void {

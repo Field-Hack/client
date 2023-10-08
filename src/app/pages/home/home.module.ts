@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SaveEmployeeComponent } from './components/save-employee/save-employee.component';
 import { SummaryComponent } from './components/summary/summary.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HomeComponent,
     SaveTaskComponent,
     SaveEmployeeComponent,
-    SummaryComponent
+    SummaryComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +44,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     FormsModule,
     ReactiveFormsModule,
     MatTreeModule,
-    MatTooltipModule
-  ]
+    MatTooltipModule,
+    MatTabsModule,
+  ],
 })
-export class HomeModule { }
+export class HomeModule {}
