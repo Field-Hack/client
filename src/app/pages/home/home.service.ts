@@ -26,7 +26,9 @@ export class HomeService {
   public openTaskDialog$ = new Subject<Task | undefined>();
   public openEmployeeDialog$ = new Subject<Employee | undefined>();
 
-  private features: google.maps.Data.Feature[] = [];
+  private features: google.maps.Polyline[] = [];
+
+  private currentColor = 0;
 
   public constructor(
     private readonly routingServiceApi: RoutingServiceApi,
@@ -57,12 +59,33 @@ export class HomeService {
     this.clearMap();
 
     for (const geoJSONData of geoJSONDatas) {
-      const features = this.map()?.data.addGeoJson(geoJSONData);
-      if (!features) {
-        continue;
-      }
-      const geojson = features[0];
-      this.features.push(geojson);
+      const color = this.getRandomDarkColor();
+
+      const polyline = new google.maps.Polyline({
+        strokeColor: color,
+        strokeOpacity: 1.0,
+        strokeWeight: 3,
+        map: this.map(),
+        icons: [
+          {
+            icon: {
+              path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+              strokeColor: color,
+              strokeWeight: 2,
+            },
+            offset: '100%',
+            repeat: '100px',
+          },
+        ],
+      });
+
+      polyline.setPath(
+        geoJSONData.features[0].geometry.coordinates.map(
+          (coord: number[]) => new google.maps.LatLng(coord[1], coord[0])
+        )
+      );
+
+      this.features.push(polyline);
     }
   }
 
@@ -146,8 +169,9 @@ export class HomeService {
 
   private clearMap(): void {
     for (const feature of this.features) {
-      this.map()?.data.remove(feature);
+      feature.setMap(null);
     }
+    this.features = [];
   }
 
   public attachMessage(marker: google.maps.Marker, task: Task) {
@@ -185,5 +209,14 @@ export class HomeService {
     await this.route();
 
     this.isLoading.set(false);
+  }
+
+  public getRandomDarkColor(): string {
+    const baseColor = ['#FF4136', '#2ECC40 ', '#0074D9', '#FF851B'];
+    const color = baseColor[this.currentColor];
+    this.currentColor =
+      this.currentColor === baseColor.length - 1 ? 0 : this.currentColor + 1;
+    console.log(color);
+    return color;
   }
 }

@@ -9,7 +9,6 @@ import {
   signal,
 } from '@angular/core';
 import { EmployeeServiceApi } from 'src/app/core/api/employee/employee.service';
-import { RoutingServiceApi } from 'src/app/core/api/routing/routing.service';
 import { TaskServiceApi } from 'src/app/core/api/task/task.service';
 import { google } from 'google-maps';
 import { MatMiniFabButton } from '@angular/material/button';
@@ -47,7 +46,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   private mouseX: number = 0;
   private mouseY: number = 0;
-  private currentColor: number = 0;
 
   public constructor(
     public readonly taskService: TaskServiceApi,
@@ -112,7 +110,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public ngAfterViewInit() {
     this.homeService.map()?.data.setStyle((feature: any) => {
       return /** @type {!google.maps.Data.StyleOptions} */ {
-        strokeColor: this.getRandomDarkColor(),
         strokeWeight: 3,
       };
     });
@@ -135,15 +132,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     this.homeService.isLoading.set(false);
     this.compiledOnce.set(true);
-  }
-
-  public getRandomDarkColor(): string {
-    const baseColor = ['#FF4136', '#2ECC40 ', '#0074D9', '#FF851B'];
-    const color = baseColor[this.currentColor];
-    this.currentColor =
-      this.currentColor === baseColor.length - 1 ? 0 : this.currentColor + 1;
-    console.log(color);
-    return color;
   }
 
   public async summary(): Promise<void> {
